@@ -1,71 +1,64 @@
 "use strict";
 
-/* ============================================================
-   Scholarship Countdown App
-   Global Configuration
-   Version : 1.0.0
-============================================================ */
+/*
+====================================================
+ My Goal - Global Configuration
+ Designed & Developed by Anura Jayasekara
+====================================================
+*/
 
 const CONFIG = Object.freeze({
 
-    /* --------------------------------------------------------
-       Application
-    -------------------------------------------------------- */
-    APP_NAME: "Scholarship Countdown",
+    /* ==========================================
+       APPLICATION
+    ========================================== */
+
+    APP_NAME: "My Goal",
+
+    APP_TAGLINE: "Your Daily Journey to Success",
+
+    APP_DESCRIPTION:
+        "A Progressive Web App designed to help Grade 5 Scholarship students track their daily progress, stay motivated, and achieve their goals.",
 
     APP_VERSION: "1.0.0",
 
-    APP_AUTHOR: "Anura Jayasekara",
-
-    LANGUAGE: "si-LK",
-
-    DATE_FORMAT: "yyyy-MM-dd",
+    AUTHOR: "Anura Jayasekara",
 
 
-    /* --------------------------------------------------------
-       Examination
-    -------------------------------------------------------- */
-    EXAM_DATE: "2026-10-31",
+    /* ==========================================
+       EXAM
+    ========================================== */
+
+    EXAM_DATE: "2026-08-09",
 
     MAX_SCORE: 200,
 
     TARGET_SCORE: 160,
 
 
-    /* --------------------------------------------------------
-       Badge Levels
-    -------------------------------------------------------- */
-    BADGES: Object.freeze({
+    /* ==========================================
+       BADGE LEVELS
+    ========================================== */
 
-        BRONZE: {
-            min: 120,
-            title: "Bronze"
-        },
-
-        SILVER: {
-            min: 150,
-            title: "Silver"
-        },
-
-        GOLD: {
-            min: 170,
-            title: "Gold"
-        },
-
-        PLATINUM: {
-            min: 190,
-            title: "Platinum"
-        }
-
-    }),
+    BADGE_LEVELS: Object.freeze([
+        { min: 190, badge: "🏆", title: "Legend" },
+        { min: 180, badge: "🥇", title: "Excellent" },
+        { min: 170, badge: "⭐", title: "Great" },
+        { min: 160, badge: "👍", title: "Target Achieved" },
+        { min: 140, badge: "📘", title: "Keep Going" },
+        { min: 0,   badge: "🌱", title: "Beginner" }
+    ]),
 
 
-    /* --------------------------------------------------------
-       Theme
-    -------------------------------------------------------- */
+    /* ==========================================
+       THEME
+    ========================================== */
+
     THEME: Object.freeze({
 
-        PRIMARY: "#5B4DFF",
+        PRIMARY: "#5B5CEB",
+
+        SECONDARY: "#7B61FF",
 
         SUCCESS: "#22C55E",
 
@@ -75,13 +68,13 @@ const CONFIG = Object.freeze({
 
         INFO: "#3B82F6",
 
-        BACKGROUND: "#F7F8FC",
+        LIGHT: "#F8FAFC",
 
-        CARD: "#FFFFFF",
-
-        TEXT: "#1E293B"
+        DARK: "#1E293B"
 
     })
 
-
 });
+
+
+Object.freeze(CONFIG);

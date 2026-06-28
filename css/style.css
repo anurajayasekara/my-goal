@@ -1,0 +1,182 @@
+/* ==========================================================
+   My Goal
+   Base Styles
+========================================================== */
+
+:root {
+
+    --primary: #5B5CEB;
+    --secondary: #7B61FF;
+
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --info: #3B82F6;
+
+    --background: #F8FAFC;
+    --surface: #FFFFFF;
+
+    --text: #1E293B;
+    --text-light: #64748B;
+
+    --border: #E2E8F0;
+
+    --shadow:
+        0 8px 24px rgba(0,0,0,.08);
+
+    --radius: 16px;
+
+    --transition: .25s ease;
+
+}
+
+
+/* ==========================================================
+   Reset
+========================================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+/* ==========================================================
+   Body
+========================================================== */
+
+body{
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+}
+
+
+/* ==========================================================
+   App
+========================================================== */
+
+#app{
+
+    display:grid;
+
+    grid-template-columns:260px 1fr;
+
+    min-height:100vh;
+
+}
+
+
+/* ==========================================================
+   Sidebar
+========================================================== */
+
+#sidebar{
+
+    background:#ffffff;
+
+    border-right:1px solid var(--border);
+
+}
+
+
+/* ==========================================================
+   Main
+========================================================== */
+
+#main-content{
+
+    padding:30px;
+
+}
+
+
+/* ==========================================================
+   Sections
+========================================================== */
+
+section{
+
+    margin-bottom:24px;
+
+}
+
+
+/* ==========================================================
+   Hidden Pages
+========================================================== */
+
+[hidden]{
+
+    display:none !important;
+
+}
+/* ==========================================================
+   Top Header
+========================================================== */
+
+#top-header{
+
+    background:#ffffff;
+
+    padding:40px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:30px;
+
+}
+
+#top-header h1{
+
+    font-size:42px;
+
+    color:var(--primary);
+
+    margin-bottom:10px;
+
+}
+
+#top-header h2{
+
+    font-size:24px;
+
+    color:var(--text);
+
+    margin-bottom:20px;
+
+    font-weight:500;
+
+}
+
+#top-header p{
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+    max-width:700px;
+
+    margin-bottom:25px;
+
+}
+
+#top-header small{
+
+    color:var(--text-light);
+
+}

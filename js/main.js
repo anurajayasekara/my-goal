@@ -1,7 +1,7 @@
 "use strict";
 
 /* ============================================================
-   Scholarship Countdown App
+   My Goal
    Main Controller
 ============================================================ */
 
@@ -9,76 +9,27 @@ document.addEventListener("DOMContentLoaded", initializeApp);
 
 function initializeApp() {
 
-    console.log(
-        `${CONFIG.APP_NAME} v${CONFIG.APP_VERSION} Loaded`
-    );
-
-    renderDashboard();
+    renderHeader();
 
 }
 
-function renderDashboard() {
+function renderHeader() {
 
-    const countdown = App.getCountdown();
+    const header = document.getElementById("top-header");
 
-    const stats = App.getStatistics();
+    header.innerHTML = `
 
-    console.table({
+        <h1>${CONFIG.APP_NAME}</h1>
 
-        "Days Left": countdown.days,
+        <h2>${CONFIG.APP_TAGLINE}</h2>
 
-        "Hours": countdown.hours,
+        <p>${CONFIG.APP_DESCRIPTION}</p>
 
-        "Minutes": countdown.minutes,
+        <small>
+            Designed & Developed by
+            ${CONFIG.AUTHOR}
+        </small>
 
-        "Seconds": countdown.seconds,
-
-        "Latest Score": stats.latest,
-
-        "Highest Score": stats.highest,
-
-        "Lowest Score": stats.lowest,
-
-        "Average Score": stats.average,
-
-        "Percentage": stats.percentage + "%",
-
-        "Badge": stats.badge
-            ? stats.badge.title
-            : "None"
-
-    });
-
-}
-
-function saveScore(score) {
-
-    try {
-
-        App.addScore(score);
-
-        renderDashboard();
-
-        console.log("Score saved.");
-
-    }
-
-    catch (error) {
-
-        console.error(error.message);
-
-    }
-
-}
-
-function resetApplication() {
-
-    if (confirm("Reset all data?")) {
-
-        App.resetApp();
-
-        renderDashboard();
-
-    }
+    `;
 
 }
