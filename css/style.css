@@ -180,3 +180,34 @@ section{
     color:var(--text-light);
 
 }
+/* ==========================================================
+   Sidebar Layout
+========================================================== */
+
+#sidebar{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    padding:24px;
+
+}
+
+#sidebar-header,
+#sidebar-profile,
+#sidebar-navigation,
+#sidebar-target,
+#sidebar-footer{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    min-height:80px;
+
+}
