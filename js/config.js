@@ -39,7 +39,57 @@ const CONFIG = Object.freeze({
 
     SIDEBAR: {
 
-        ICON: "🎯"
+        ICON: "🎯",
+
+        BRAND_NAME: "My Goal",
+
+        BRAND_TAGLINE: "Your Daily Journey to Success",
+
+        MENU: [
+
+            {
+                id: "dashboard",
+                icon: "🏠",
+                title: "Dashboard",
+                active: true
+            },
+
+            {
+                id: "history",
+                icon: "📅",
+                title: "History",
+                active: false
+            },
+
+            {
+                id: "progress",
+                icon: "📈",
+                title: "Progress Chart",
+                active: false
+            },
+
+            {
+                id: "motivation",
+                icon: "⭐",
+                title: "Motivation",
+                active: false
+            },
+
+            {
+                id: "settings",
+                icon: "⚙",
+                title: "Settings",
+                active: false
+            },
+
+            {
+                id: "about",
+                icon: "ℹ",
+                title: "About",
+                active: false
+            }
+
+        ]
 
     },
 

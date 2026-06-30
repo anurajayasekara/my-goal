@@ -3,6 +3,7 @@
 /* ==========================================================
    My Goal
    Main Controller
+   Designed & Developed by Anura Jayasekara
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", initializeApp);
@@ -20,30 +21,13 @@ function initializeApp() {
 }
 
 /* ==========================================================
-   Sidebar Layout
+   Sidebar
 ========================================================== */
 
 function renderSidebar() {
 
-    const sidebar = document.getElementById("sidebar");
-
-    if (!sidebar) return;
-
-    sidebar.innerHTML = `
-
-        <div id="sidebar-header"></div>
-
-        <div id="sidebar-profile"></div>
-
-        <nav id="sidebar-navigation"></nav>
-
-        <div id="sidebar-target"></div>
-
-        <div id="sidebar-footer"></div>
-
-    `;
-
     renderSidebarBrand();
+
     renderSidebarNavigation();
 
 }
@@ -53,7 +37,6 @@ function renderSidebar() {
 ========================================================== */
 
 function renderSidebarBrand() {
-    
 
     const header = document.getElementById("sidebar-header");
 
@@ -86,6 +69,7 @@ function renderSidebarBrand() {
     `;
 
 }
+
 /* ==========================================================
    Sidebar Navigation
 ========================================================== */
@@ -102,9 +86,17 @@ function renderSidebarNavigation() {
             class="sidebar-menu-item ${item.active ? "active" : ""}"
             data-page="${item.id}">
 
-            <span class="menu-icon">${item.icon}</span>
+            <span class="menu-icon">
 
-            <span class="menu-title">${item.title}</span>
+                ${item.icon}
+
+            </span>
+
+            <span class="menu-title">
+
+                ${item.title}
+
+            </span>
 
         </button>
 
@@ -124,30 +116,53 @@ function renderHeader() {
 
     header.innerHTML = `
 
-        <h1>
+        <div class="header-content">
 
-            ${CONFIG.APP_NAME}
+            <div class="header-icon">
 
-        </h1>
+                🎯
 
-        <h2>
+            </div>
 
-            ${CONFIG.APP_TAGLINE}
+            <div class="header-text">
 
-        </h2>
+                <h1>
 
-        <p>
+                    ${CONFIG.APP_NAME}
 
-            ${CONFIG.APP_DESCRIPTION}
+                </h1>
 
-        </p>
+                <h2>
 
-        <small>
+                    ${CONFIG.APP_TAGLINE}
 
-            Designed &amp; Developed by
-            <strong>${CONFIG.AUTHOR}</strong>
+                </h2>
 
-        </small>
+                <p>
+
+                    ${CONFIG.APP_DESCRIPTION}
+
+                </p>
+
+                <div class="header-author">
+
+                    <span>
+
+                        Designed &amp; Developed by
+
+                    </span>
+
+                    <strong>
+
+                        ${CONFIG.AUTHOR}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
 
     `;
 
