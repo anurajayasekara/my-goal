@@ -1,22 +1,48 @@
 "use strict";
 
-/* ============================================================
-   Scholarship Countdown App
+/* ==========================================================
+   My Goal
    Utility Functions
-============================================================ */
+   Phase 04 - Compatibility Patch 4.0
+   Designed & Developed by Anura Jayasekara
+========================================================== */
 
 const Utils = (() => {
 
-    /* --------------------------------------------------------
-       Date
-    -------------------------------------------------------- */
+    /* ======================================================
+       Date & Time
+    ====================================================== */
 
     function today() {
+
         return new Date();
+
+    }
+
+    function nowISO() {
+
+        return new Date().toISOString();
+
     }
 
     function examDate() {
-        return new Date(CONFIG.EXAM_DATE);
+
+        return new Date(CONFIG.EXAM.DATE_TIME);
+
+    }
+
+    function getTodayKey() {
+
+        return nowISO().slice(0, 10);
+
+    }
+
+    function formatDateKey(date) {
+
+        return new Date(date)
+            .toISOString()
+            .slice(0, 10);
+
     }
 
     function daysRemaining() {
@@ -39,7 +65,11 @@ const Utils = (() => {
 
         let diff = exam - now;
 
-        if (diff < 0) diff = 0;
+        if (diff < 0) {
+
+            diff = 0;
+
+        }
 
         return {
 
@@ -55,15 +85,45 @@ const Utils = (() => {
 
     }
 
-    /* --------------------------------------------------------
-       Score
-    -------------------------------------------------------- */
+    /* ======================================================
+       Score Validation
+    ====================================================== */
+
+    function sanitizeScore(value) {
+
+        if (typeof value === "string") {
+
+            value = value.trim();
+
+        }
+
+        if (value === "") {
+
+            return NaN;
+
+        }
+
+        return Number(value);
+
+    }
+
+    function isIntegerScore(value) {
+
+        return Number.isInteger(value);
+
+    }
 
     function isValidScore(score) {
 
-        return Number.isInteger(score)
-            && score >= 0
-            && score <= CONFIG.MAX_SCORE;
+        return (
+
+            Number.isInteger(score) &&
+
+            score >= 0 &&
+
+            score <= CONFIG.SCORE.MAXIMUM
+
+        );
 
     }
 
@@ -71,19 +131,27 @@ const Utils = (() => {
 
         return Number(
 
-            ((score / CONFIG.MAX_SCORE) * 100).toFixed(2)
+            (
+
+                (score / CONFIG.SCORE.MAXIMUM) * 100
+
+            ).toFixed(2)
 
         );
 
     }
 
-    /* --------------------------------------------------------
+    /* ======================================================
        Statistics
-    -------------------------------------------------------- */
+    ====================================================== */
 
     function average(scores) {
 
-        if (!scores.length) return 0;
+        if (!scores.length) {
+
+            return 0;
+
+        }
 
         const total = scores.reduce(
 
@@ -121,41 +189,51 @@ const Utils = (() => {
 
     }
 
-    /* --------------------------------------------------------
+    /* ======================================================
        Badge
-    -------------------------------------------------------- */
+    ====================================================== */
 
     function badge(score) {
 
-        if (score >= CONFIG.BADGES.PLATINUM.min)
-            return CONFIG.BADGES.PLATINUM;
+        let result = null;
 
-        if (score >= CONFIG.BADGES.GOLD.min)
-            return CONFIG.BADGES.GOLD;
+        for (const item of CONFIG.BADGES) {
 
-        if (score >= CONFIG.BADGES.SILVER.min)
-            return CONFIG.BADGES.SILVER;
+            if (score >= item.MINIMUM_SCORE) {
 
-        if (score >= CONFIG.BADGES.BRONZE.min)
-            return CONFIG.BADGES.BRONZE;
+                result = item;
 
-        return null;
+            }
+
+        }
+
+        return result;
 
     }
 
-    /* --------------------------------------------------------
+    /* ======================================================
        Export
-    -------------------------------------------------------- */
+    ====================================================== */
 
     return Object.freeze({
 
         today,
 
+        nowISO,
+
         examDate,
+
+        getTodayKey,
+
+        formatDateKey,
 
         daysRemaining,
 
         countdown,
+
+        sanitizeScore,
+
+        isIntegerScore,
 
         isValidScore,
 

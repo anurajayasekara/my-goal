@@ -1,27 +1,33 @@
 "use strict";
 
-/* ============================================================
-   Scholarship Countdown App
+/* ==========================================================
+   My Goal
    Business Logic Layer
-============================================================ */
+   Phase 04 - Compatibility Patch 4.0
+   Designed & Developed by Anura Jayasekara
+========================================================== */
 
 const App = (() => {
 
-    /* --------------------------------------------------------
+    /* ======================================================
        Private
-    -------------------------------------------------------- */
+    ====================================================== */
 
     function data() {
+
         return Storage.getData();
+
     }
 
-    function save(data) {
-        Storage.setData(data);
+    function save(db) {
+
+        Storage.setData(db);
+
     }
 
-    /* --------------------------------------------------------
-       Public
-    -------------------------------------------------------- */
+    /* ======================================================
+       Configuration
+    ====================================================== */
 
     function getConfig() {
 
@@ -29,65 +35,196 @@ const App = (() => {
 
     }
 
+    /* ======================================================
+       Countdown
+    ====================================================== */
+
     function getCountdown() {
 
         return Utils.countdown();
 
     }
 
-    function getScores() {
+    /* ======================================================
+       Daily Score
+    ====================================================== */
 
-        return data().scores;
+    function validateDailyScore(score) {
 
-    }
+        const value = Utils.sanitizeScore(score);
 
-    function addScore(score) {
+        if (Number.isNaN(value)) {
 
-        if (!Utils.isValidScore(score)) {
+            return {
 
-            throw new Error("Invalid score.");
+                valid: false,
+
+                message: "Please enter today's score."
+
+            };
 
         }
 
-        const db = data();
+        if (!Utils.isIntegerScore(value)) {
 
-        db.scores.push({
+            return {
 
-            score,
+                valid: false,
 
-            date: new Date().toISOString()
+                message: "Score must be a whole number."
 
-        });
+            };
 
-        save(db);
+        }
+
+        if (value < 0) {
+
+            return {
+
+                valid: false,
+
+                message: "Score cannot be negative."
+
+            };
+
+        }
+
+        if (value > CONFIG.SCORE.MAXIMUM) {
+
+            return {
+
+                valid: false,
+
+                message:
+                    `Maximum score is ${CONFIG.SCORE.MAXIMUM}.`
+
+            };
+
+        }
+
+        return {
+
+            valid: true,
+
+            score: value,
+
+            message: ""
+
+        };
 
     }
 
+    function canSubmitToday() {
+
+        const todayKey = Utils.getTodayKey();
+
+        return !Storage.hasDailyScore(todayKey);
+
+    }
+
+    function submitDailyScore(score) {
+
+        const validation = validateDailyScore(score);
+
+        if (!validation.valid) {
+
+            throw new Error(validation.message);
+
+        }
+
+        const todayKey = Utils.getTodayKey();
+
+        if (Storage.hasDailyScore(todayKey)) {
+
+            throw new Error(
+
+                "Today's score has already been saved."
+
+            );
+
+        }
+
+        return Storage.saveDailyScore(
+
+            todayKey,
+
+            validation.score
+
+        );
+
+    }
+
+    function updateDailyScore(score) {
+
+        const validation = validateDailyScore(score);
+
+        if (!validation.valid) {
+
+            throw new Error(validation.message);
+
+        }
+
+        const todayKey = Utils.getTodayKey();
+
+        return Storage.saveDailyScore(
+
+            todayKey,
+
+            validation.score
+
+        );
+
+    }
+
+    function getTodayScore() {
+
+        return Storage.getDailyScore(
+
+            Utils.getTodayKey()
+
+        );
+
+    }
+
+    function getDailyScores() {
+
+        return Storage.getDailyScores();
+
+    }
+
+    function getScoreList() {
+
+        return Object.values(
+
+            Storage.getDailyScores()
+
+        ).map(item => item.score);
+
+    }
+
+    /* ======================================================
+       Statistics
+    ====================================================== */
+
     function getStatistics() {
 
-        const scores = getScores()
-
-            .map(item => item.score);
+        const scores = getScoreList();
 
         const latest = scores.length
+
             ? scores[scores.length - 1]
+
             : 0;
-
-        const highest = Utils.highest(scores);
-
-        const lowest = Utils.lowest(scores);
-
-        const average = Utils.average(scores);
 
         return {
 
             latest,
 
-            highest,
+            highest: Utils.highest(scores),
 
-            lowest,
+            lowest: Utils.lowest(scores),
 
-            average,
+            average: Utils.average(scores),
 
             percentage: Utils.percentage(latest),
 
@@ -97,11 +234,19 @@ const App = (() => {
 
     }
 
+    /* ======================================================
+       Reset
+    ====================================================== */
+
     function resetApp() {
 
         Storage.reset();
 
     }
+
+    /* ======================================================
+       Export
+    ====================================================== */
 
     return Object.freeze({
 
@@ -109,9 +254,17 @@ const App = (() => {
 
         getCountdown,
 
-        getScores,
+        validateDailyScore,
 
-        addScore,
+        canSubmitToday,
+
+        submitDailyScore,
+
+        updateDailyScore,
+
+        getTodayScore,
+
+        getDailyScores,
 
         getStatistics,
 

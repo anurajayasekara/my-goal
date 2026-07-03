@@ -19,6 +19,78 @@ function initializeApp() {
 
     renderHeader();
 
+    initializeDailyScore();
+
+/* ==========================================================
+   Daily Score Module
+========================================================== */
+
+function initializeDailyScore() {
+
+    const input = document.getElementById("daily-score-input");
+    const button = document.getElementById("daily-score-save-button");
+    const message = document.getElementById("daily-score-message");
+
+    if (!input || !button || !message) {
+
+        return;
+
+    }
+
+    document.getElementById("score-maximum").textContent =
+        CONFIG.SCORE.MAXIMUM;
+
+    document.getElementById("score-target").textContent =
+        CONFIG.SCORE.TARGET;
+
+    const today = App.getTodayScore();
+
+    if (today) {
+
+        input.value = today.score;
+
+        input.disabled = true;
+
+        button.disabled = true;
+
+        message.textContent =
+            "Today's score has already been saved.";
+
+        message.style.color = CONFIG.THEME.INFO;
+
+    }
+
+    button.addEventListener("click", () => {
+
+        message.textContent = "";
+
+        try {
+
+            App.submitDailyScore(input.value);
+
+            input.disabled = true;
+
+            button.disabled = true;
+
+            message.textContent =
+                "Today's score saved successfully.";
+
+            message.style.color = CONFIG.THEME.SUCCESS;
+
+        }
+
+        catch (error) {
+
+            message.textContent = error.message;
+
+            message.style.color = CONFIG.THEME.DANGER;
+
+        }
+
+    });
+
+}
+
     if (typeof Countdown !== "undefined") {
 
         Countdown.start();

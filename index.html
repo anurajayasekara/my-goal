@@ -68,7 +68,7 @@
 
                             <h2>Scholarship Examination</h2>
 
-                            <p class="exam-date" id="exam-date"></p>
+                            
 
                             </p>
 
@@ -179,7 +179,83 @@
                      Daily Score Entry
                 =============================== -->
 
-                <section id="score-entry-section"></section>
+                    <section id="score-entry-section">
+
+    <div class="daily-score-card">
+
+        <div class="daily-score-header">
+
+            <h2>🎯 Today's Score</h2>
+
+            <p>
+                Enter today's Grade 5 Scholarship practice score.
+            </p>
+
+        </div>
+
+        <div class="daily-score-body">
+
+            <div class="form-group">
+
+                <label for="daily-score-input">
+                    Score (0–200)
+                </label>
+
+                <input
+                    id="daily-score-input"
+                    class="score-input"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    max="200"
+                    step="1"
+                    placeholder="Enter today's score"
+                    autocomplete="off">
+
+            </div>
+
+            <div
+                id="daily-score-message"
+                class="score-message"
+                aria-live="polite">
+            </div>
+
+            <button
+                id="daily-score-save-button"
+                class="primary-button"
+                type="button">
+
+                Save Today's Score
+
+            </button>
+
+        </div>
+
+        <div class="daily-score-footer">
+
+            <div class="score-info">
+
+                <span>
+
+                    Maximum :
+                    <strong id="score-maximum">200</strong>
+
+                </span>
+
+                <span>
+
+                    Target :
+                    <strong id="score-target">160</strong>
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
                 <!-- ==============================
