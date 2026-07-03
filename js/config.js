@@ -4,7 +4,7 @@
    My Goal
    Global Configuration
    Phase 03 - Countdown Module
-   Version : 1.0.0
+   Version : 1.1.0
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
@@ -25,10 +25,9 @@ const CONFIG = Object.freeze({
 
         AUTHOR: "Anura Jayasekara",
 
-        VERSION: "1.0.0"
+        VERSION: "1.1.0"
 
     }),
-
 
     /* ======================================================
        Scholarship Examination
@@ -48,19 +47,101 @@ const CONFIG = Object.freeze({
 
     }),
 
-
     /* ======================================================
        Countdown
     ====================================================== */
 
     COUNTDOWN: Object.freeze({
 
+        /* --------------------------------------------------
+           Timer Settings
+        --------------------------------------------------- */
+
         UPDATE_INTERVAL: 1000,
 
-        SHOW_LEADING_ZERO: true
+        SHOW_LEADING_ZERO: true,
+
+        /* --------------------------------------------------
+           Countdown Messages
+        --------------------------------------------------- */
+
+        MESSAGES: Object.freeze([
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 100,
+
+                TEXT:
+                    "Your journey starts today."
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 60,
+
+                TEXT:
+                    "Stay focused. Success begins with today's effort."
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 31,
+
+                TEXT:
+                    "Stay focused. Every day counts."
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 8,
+
+                TEXT:
+                    "{days} days remaining. Keep going!"
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 2,
+
+                TEXT:
+                    "{days} days left. Give your best effort!"
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 1,
+
+                TEXT:
+                    "Tomorrow is your examination. Good luck!"
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: 0,
+
+                TEXT:
+                    "Today is your examination."
+
+            }),
+
+            Object.freeze({
+
+                MINIMUM_DAYS: -1,
+
+                TEXT:
+                    "The examination has started."
+
+            })
+
+        ])
 
     }),
-
 
     /* ======================================================
        Student Score
@@ -73,7 +154,6 @@ const CONFIG = Object.freeze({
         TARGET: 160
 
     }),
-
 
     /* ======================================================
        Sidebar
@@ -165,7 +245,6 @@ const CONFIG = Object.freeze({
 
     }),
 
-
     /* ======================================================
        Badge Levels
     ====================================================== */
@@ -205,7 +284,6 @@ const CONFIG = Object.freeze({
         })
 
     ]),
-
 
     /* ======================================================
        Theme

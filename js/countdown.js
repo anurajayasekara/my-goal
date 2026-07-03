@@ -3,170 +3,233 @@
 /* ==========================================================
    My Goal
    Countdown Module
-   Phase 03 - Build 3.2
-   Version : 1.0.0
+   Phase 03 - Build 3.4
+   Version : 1.2.0
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
 const Countdown = (() => {
 
     /* ======================================================
-       DOM Elements
+       DOM Cache
     ====================================================== */
 
-    const daysElement = document.getElementById("days");
-    const hoursElement = document.getElementById("hours");
-    const minutesElement = document.getElementById("minutes");
-    const secondsElement = document.getElementById("seconds");
+    const ELEMENTS = Object.freeze({
 
-    const examDateElement = document.getElementById("exam-date");
-    const messageElement = document.getElementById("countdown-message");
+        days: document.getElementById("days"),
+
+        hours: document.getElementById("hours"),
+
+        minutes: document.getElementById("minutes"),
+
+        seconds: document.getElementById("seconds"),
+
+        examDate: document.getElementById("exam-date"),
+
+        message: document.getElementById("countdown-message")
+
+    });
+
+
+    /* ======================================================
+       Configuration
+    ====================================================== */
+
+    const EXAM_DATE = new Date(CONFIG.EXAM.DATE_TIME);
+
 
     /* ======================================================
        Helper Functions
     ====================================================== */
 
-    function getExamDate() {
+    function pad(value, digits = 2) {
 
-        return new Date(CONFIG.EXAM.DATE_TIME);
-
-    }
-
-    function pad(number, digits = 2) {
-
-        return String(number).padStart(digits, "0");
+        return CONFIG.COUNTDOWN.SHOW_LEADING_ZERO
+            ? String(value).padStart(digits, "0")
+            : String(value);
 
     }
+
 
     function updateExamDate() {
 
-        if (!examDateElement) return;
+        if (!ELEMENTS.examDate) return;
 
-        examDateElement.textContent =
+        ELEMENTS.examDate.textContent =
             `${CONFIG.EXAM.DISPLAY_DATE} • ${CONFIG.EXAM.DISPLAY_TIME}`;
 
     }
 
-    function updateMessage(days) {
 
-        if (!messageElement) return;
+    /* ======================================================
+       Message Resolver
+    ====================================================== */
 
-        if (days > 30) {
+    function getMessage(daysRemaining) {
 
-            messageElement.textContent =
-                "Stay focused. Every day counts.";
+        for (const rule of CONFIG.COUNTDOWN.MESSAGES) {
 
-        }
+            if (daysRemaining >= rule.MINIMUM_DAYS) {
 
-        else if (days > 7) {
+                return rule.TEXT.replace(
+                    "{days}",
+                    daysRemaining
+                );
 
-            messageElement.textContent =
-                `${days} days remaining. Keep going!`;
-
-        }
-
-        else if (days > 1) {
-
-            messageElement.textContent =
-                `${days} days left. Give your best effort!`;
+            }
 
         }
 
-        else if (days === 1) {
+        return "";
 
-            messageElement.textContent =
-                "Tomorrow is your examination. Good luck!";
+    }
+
+
+    function updateMessage(daysRemaining) {
+
+        if (!ELEMENTS.message) return;
+
+        ELEMENTS.message.textContent =
+            getMessage(daysRemaining);
+
+    }
+
+
+    /* ======================================================
+       Render Countdown
+    ====================================================== */
+
+    function render(days, hours, minutes, seconds) {
+
+        if (ELEMENTS.days) {
+
+            ELEMENTS.days.textContent = pad(days, 3);
 
         }
 
-        else {
+        if (ELEMENTS.hours) {
 
-            messageElement.textContent =
-                "Today is your examination.";
+            ELEMENTS.hours.textContent = pad(hours);
+
+        }
+
+        if (ELEMENTS.minutes) {
+
+            ELEMENTS.minutes.textContent = pad(minutes);
+
+        }
+
+        if (ELEMENTS.seconds) {
+
+            ELEMENTS.seconds.textContent = pad(seconds);
 
         }
 
     }
 
+
     /* ======================================================
-       Countdown Update
+       Countdown Finished
     ====================================================== */
 
-    function update() {
+    function renderFinished() {
 
-        const now = new Date();
+        render(0, 0, 0, 0);
 
-        const target = getExamDate();
+        updateMessage(-1);
 
-        let difference = target.getTime() - now.getTime();
+    }
+
+
+    /* ======================================================
+       Calculate Remaining Time
+    ====================================================== */
+
+    function calculateRemainingTime() {
+
+        let difference =
+            EXAM_DATE.getTime() - Date.now();
 
         if (difference <= 0) {
 
-            if (daysElement) daysElement.textContent = "000";
-            if (hoursElement) hoursElement.textContent = "00";
-            if (minutesElement) minutesElement.textContent = "00";
-            if (secondsElement) secondsElement.textContent = "00";
-
-            if (messageElement) {
-
-                messageElement.textContent =
-                    "The examination has started.";
-
-            }
-
-            return;
+            return null;
 
         }
 
         const days = Math.floor(
-            difference / (1000 * 60 * 60 * 24)
+            difference / 86400000
         );
 
-        difference %= (1000 * 60 * 60 * 24);
+        difference %= 86400000;
 
         const hours = Math.floor(
-            difference / (1000 * 60 * 60)
+            difference / 3600000
         );
 
-        difference %= (1000 * 60 * 60);
+        difference %= 3600000;
 
         const minutes = Math.floor(
-            difference / (1000 * 60)
+            difference / 60000
         );
 
-        difference %= (1000 * 60);
+        difference %= 60000;
 
         const seconds = Math.floor(
             difference / 1000
         );
 
-        if (daysElement) {
+        return {
 
-            daysElement.textContent = pad(days, 3);
+            days,
 
-        }
+            hours,
 
-        if (hoursElement) {
+            minutes,
 
-            hoursElement.textContent = pad(hours);
+            seconds
 
-        }
-
-        if (minutesElement) {
-
-            minutesElement.textContent = pad(minutes);
-
-        }
-
-        if (secondsElement) {
-
-            secondsElement.textContent = pad(seconds);
-
-        }
-
-        updateMessage(days);
+        };
 
     }
+
+
+    /* ======================================================
+       Update Countdown
+    ====================================================== */
+
+    function update() {
+
+        const remaining =
+            calculateRemainingTime();
+
+        if (!remaining) {
+
+            renderFinished();
+
+            return;
+
+        }
+
+        render(
+
+            remaining.days,
+
+            remaining.hours,
+
+            remaining.minutes,
+
+            remaining.seconds
+
+        );
+
+        updateMessage(
+
+            remaining.days
+
+        );
+
+    }
+
 
     /* ======================================================
        Public
@@ -187,6 +250,7 @@ const Countdown = (() => {
         );
 
     }
+
 
     return Object.freeze({
 
