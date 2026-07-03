@@ -3,6 +3,7 @@
 /* ==========================================================
    My Goal
    Main Controller
+   Phase 03 - Build 3.2A
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
@@ -17,6 +18,12 @@ function initializeApp() {
     renderSidebar();
 
     renderHeader();
+
+    if (typeof Countdown !== "undefined") {
+
+        Countdown.start();
+
+    }
 
 }
 
@@ -54,13 +61,13 @@ function renderSidebarBrand() {
 
             <h2>
 
-                ${CONFIG.APP_NAME}
+                ${CONFIG.APP.NAME}
 
             </h2>
 
             <p>
 
-                ${CONFIG.APP_TAGLINE}
+                ${CONFIG.APP.TAGLINE}
 
             </p>
 
@@ -128,19 +135,19 @@ function renderHeader() {
 
                 <h1>
 
-                    ${CONFIG.APP_NAME}
+                    ${CONFIG.APP.NAME}
 
                 </h1>
 
                 <h2>
 
-                    ${CONFIG.APP_TAGLINE}
+                    ${CONFIG.APP.TAGLINE}
 
                 </h2>
 
                 <p>
 
-                    ${CONFIG.APP_DESCRIPTION}
+                    ${CONFIG.APP.DESCRIPTION}
 
                 </p>
 
@@ -154,7 +161,7 @@ function renderHeader() {
 
                     <strong>
 
-                        ${CONFIG.AUTHOR}
+                        ${CONFIG.APP.AUTHOR}
 
                     </strong>
 

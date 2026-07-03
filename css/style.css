@@ -336,3 +336,134 @@ section{
     font-weight:600;
 
 }
+/* ==========================================================
+   Countdown Module
+========================================================== */
+
+#countdown-section{
+
+    margin-bottom:30px;
+
+}
+
+.countdown-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:28px;
+
+}
+
+.countdown-header{
+
+    text-align:center;
+
+    margin-bottom:28px;
+
+}
+
+.countdown-header h2{
+
+    font-size:30px;
+
+    color:var(--primary);
+
+    margin-bottom:10px;
+
+    font-weight:700;
+
+}
+
+.exam-date{
+
+    font-size:16px;
+
+    color:var(--text-light);
+
+}
+
+.countdown-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:18px;
+
+}
+
+.countdown-box{
+
+    background:#F8FAFF;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:22px 12px;
+
+    text-align:center;
+
+    transition:var(--transition);
+
+}
+
+.countdown-box:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 24px rgba(91,92,235,.15);
+
+}
+
+.count-value{
+
+    display:block;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+    line-height:1;
+
+}
+
+.count-label{
+
+    display:block;
+
+    margin-top:12px;
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.countdown-status{
+
+    margin-top:28px;
+
+    text-align:center;
+
+}
+
+#countdown-message{
+
+    color:var(--text-light);
+
+    font-size:16px;
+
+    line-height:1.7;
+
+}

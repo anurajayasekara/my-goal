@@ -1,0 +1,367 @@
+/* ==========================================================
+   My Goal
+   Responsive Styles
+   Phase 03 - Build 3.1.1
+   Mobile First Responsive Layout
+   Designed & Developed by Anura Jayasekara
+========================================================== */
+
+
+/* ==========================================================
+   Large Tablets & Small Laptops
+   Screen Width: 1024px and below
+========================================================== */
+
+@media screen and (max-width: 1024px) {
+
+    #app {
+
+        grid-template-columns: 260px 1fr;
+
+    }
+
+    #main-content {
+
+        padding: 24px;
+
+    }
+
+    #top-header {
+
+        padding: 32px;
+
+    }
+
+    #top-header h1 {
+
+        font-size: 36px;
+
+    }
+
+    #top-header h2 {
+
+        font-size: 22px;
+
+    }
+
+    .countdown-header h2 {
+
+        font-size: 28px;
+
+    }
+
+    .count-value {
+
+        font-size: 38px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Tablets
+   Screen Width: 768px and below
+========================================================== */
+
+@media screen and (max-width: 768px) {
+
+    #app {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    #sidebar {
+
+        display: none;
+
+    }
+
+    #main-content {
+
+        padding: 18px;
+
+    }
+
+    #top-header {
+
+        padding: 24px;
+
+        margin-bottom: 24px;
+
+    }
+
+    #top-header h1 {
+
+        font-size: 30px;
+
+    }
+
+    #top-header h2 {
+
+        font-size: 20px;
+
+    }
+
+    #top-header p {
+
+        font-size: 15px;
+
+    }
+
+    .countdown-card {
+
+        padding: 22px;
+
+    }
+
+    .countdown-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 16px;
+
+    }
+
+    .count-value {
+
+        font-size: 34px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Large Mobile Phones
+   Screen Width: 480px and below
+========================================================== */
+
+@media screen and (max-width: 480px) {
+
+    #main-content {
+
+        padding: 14px;
+
+    }
+
+    #top-header {
+
+        padding: 20px;
+
+    }
+
+    #top-header h1 {
+
+        font-size: 26px;
+
+    }
+
+    #top-header h2 {
+
+        font-size: 18px;
+
+    }
+
+    #top-header p {
+
+        font-size: 14px;
+
+        line-height: 1.6;
+
+    }
+
+    .countdown-card {
+
+        padding: 18px;
+
+    }
+
+    .countdown-header {
+
+        margin-bottom: 22px;
+
+    }
+
+    .countdown-header h2 {
+
+        font-size: 22px;
+
+    }
+
+    .exam-date {
+
+        font-size: 14px;
+
+    }
+
+    .countdown-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+
+    }
+
+    .countdown-box {
+
+        padding: 18px 10px;
+
+    }
+
+    .count-value {
+
+        font-size: 30px;
+
+    }
+
+    .count-label {
+
+        font-size: 13px;
+
+    }
+
+    #countdown-message {
+
+        font-size: 14px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Small Mobile Phones
+   Screen Width: 360px and below
+========================================================== */
+
+@media screen and (max-width: 360px) {
+
+    #main-content {
+
+        padding: 12px;
+
+    }
+
+    #top-header {
+
+        padding: 18px;
+
+    }
+
+    #top-header h1 {
+
+        font-size: 22px;
+
+    }
+
+    #top-header h2 {
+
+        font-size: 16px;
+
+    }
+
+    .countdown-card {
+
+        padding: 16px;
+
+    }
+
+    .countdown-header h2 {
+
+        font-size: 20px;
+
+    }
+
+    .exam-date {
+
+        font-size: 13px;
+
+    }
+
+    .countdown-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+    }
+
+    .countdown-box {
+
+        padding: 16px;
+
+    }
+
+    .count-value {
+
+        font-size: 28px;
+
+    }
+
+    .count-label {
+
+        font-size: 13px;
+
+    }
+
+    #countdown-message {
+
+        font-size: 13px;
+
+    }
+
+}
+
+
+/* ==========================================================
+   Very Small Devices
+   Screen Width: 320px and below
+========================================================== */
+
+@media screen and (max-width: 320px) {
+
+    #main-content {
+
+        padding: 10px;
+
+    }
+
+    .countdown-card {
+
+        padding: 14px;
+
+    }
+
+    .countdown-header h2 {
+
+        font-size: 18px;
+
+    }
+
+    .exam-date {
+
+        font-size: 12px;
+
+    }
+
+    .count-value {
+
+        font-size: 24px;
+
+    }
+
+    .count-label {
+
+        font-size: 12px;
+
+    }
+
+    #countdown-message {
+
+        font-size: 12px;
+
+    }
+
+}

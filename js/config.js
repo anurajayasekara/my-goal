@@ -3,6 +3,8 @@
 /* ==========================================================
    My Goal
    Global Configuration
+   Phase 03 - Countdown Module
+   Version : 1.0.0
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
@@ -12,32 +14,72 @@ const CONFIG = Object.freeze({
        Application
     ====================================================== */
 
-    APP_NAME: "My Goal",
+    APP: Object.freeze({
 
-    APP_TAGLINE: "Your Daily Journey to Success",
+        NAME: "My Goal",
 
-    APP_DESCRIPTION:
-        "A Progressive Web App designed to help Grade 5 Scholarship students track their daily progress, stay motivated, and achieve their goals.",
+        TAGLINE: "Your Daily Journey to Success",
 
-    AUTHOR: "Anura Jayasekara",
+        DESCRIPTION:
+            "A Progressive Web App designed to help Grade 5 Scholarship students track their daily progress, stay motivated, and achieve their goals.",
 
-    VERSION: "0.1.0",
+        AUTHOR: "Anura Jayasekara",
+
+        VERSION: "1.0.0"
+
+    }),
+
 
     /* ======================================================
-       Examination
+       Scholarship Examination
     ====================================================== */
 
-    EXAM_DATE: "2026-08-09",
+    EXAM: Object.freeze({
 
-    MAXIMUM_SCORE: 200,
+        TITLE: "Grade 5 Scholarship Examination",
 
-    TARGET_SCORE: 160,
+        DATE_TIME: "2026-08-09T09:30:00+05:30",
+
+        TIMEZONE: "Asia/Colombo",
+
+        DISPLAY_DATE: "09 August 2026",
+
+        DISPLAY_TIME: "09:30 AM"
+
+    }),
+
+
+    /* ======================================================
+       Countdown
+    ====================================================== */
+
+    COUNTDOWN: Object.freeze({
+
+        UPDATE_INTERVAL: 1000,
+
+        SHOW_LEADING_ZERO: true
+
+    }),
+
+
+    /* ======================================================
+       Student Score
+    ====================================================== */
+
+    SCORE: Object.freeze({
+
+        MAXIMUM: 200,
+
+        TARGET: 160
+
+    }),
+
 
     /* ======================================================
        Sidebar
     ====================================================== */
 
-    SIDEBAR: {
+    SIDEBAR: Object.freeze({
 
         ICON: "🎯",
 
@@ -45,87 +87,131 @@ const CONFIG = Object.freeze({
 
         BRAND_TAGLINE: "Your Daily Journey to Success",
 
-        MENU: [
+        MENU: Object.freeze([
 
-            {
+            Object.freeze({
+
                 id: "dashboard",
+
                 icon: "🏠",
+
                 title: "Dashboard",
+
                 active: true
-            },
 
-            {
+            }),
+
+            Object.freeze({
+
                 id: "history",
+
                 icon: "📅",
+
                 title: "History",
-                active: false
-            },
 
-            {
+                active: false
+
+            }),
+
+            Object.freeze({
+
                 id: "progress",
+
                 icon: "📈",
+
                 title: "Progress Chart",
-                active: false
-            },
 
-            {
+                active: false
+
+            }),
+
+            Object.freeze({
+
                 id: "motivation",
+
                 icon: "⭐",
+
                 title: "Motivation",
-                active: false
-            },
 
-            {
+                active: false
+
+            }),
+
+            Object.freeze({
+
                 id: "settings",
+
                 icon: "⚙",
+
                 title: "Settings",
-                active: false
-            },
 
-            {
+                active: false
+
+            }),
+
+            Object.freeze({
+
                 id: "about",
+
                 icon: "ℹ",
+
                 title: "About",
+
                 active: false
-            }
 
-        ]
+            })
 
-    },
+        ])
+
+    }),
+
 
     /* ======================================================
        Badge Levels
     ====================================================== */
 
-    BADGES: [
+    BADGES: Object.freeze([
 
-        {
-            name: "Bronze",
-            minimumScore: 120
-        },
+        Object.freeze({
 
-        {
-            name: "Silver",
-            minimumScore: 140
-        },
+            NAME: "Bronze",
 
-        {
-            name: "Gold",
-            minimumScore: 160
-        },
+            MINIMUM_SCORE: 120
 
-        {
-            name: "Platinum",
-            minimumScore: 180
-        }
+        }),
 
-    ],
+        Object.freeze({
+
+            NAME: "Silver",
+
+            MINIMUM_SCORE: 140
+
+        }),
+
+        Object.freeze({
+
+            NAME: "Gold",
+
+            MINIMUM_SCORE: 160
+
+        }),
+
+        Object.freeze({
+
+            NAME: "Platinum",
+
+            MINIMUM_SCORE: 180
+
+        })
+
+    ]),
+
 
     /* ======================================================
        Theme
     ====================================================== */
 
-    THEME: {
+    THEME: Object.freeze({
 
         PRIMARY: "#5B5CEB",
 
@@ -139,6 +225,6 @@ const CONFIG = Object.freeze({
 
         INFO: "#3B82F6"
 
-    }
+    })
 
 });

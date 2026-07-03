@@ -2,108 +2,280 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>My Goal</title>
 
+    <!-- CSS -->
+
     <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/responsive.css">
+
 </head>
 
 <body>
 
     <div id="app">
 
-    <!-- =========================
-         Sidebar
-    ========================== -->
+        <!-- ==========================================
+             Sidebar
+        =========================================== -->
 
-    <aside id="sidebar">
+        <aside id="sidebar">
 
-        <div id="sidebar-header"></div>
+            <div id="sidebar-header"></div>
 
-        <nav id="sidebar-navigation"></nav>
+            <nav id="sidebar-navigation"></nav>
 
-        <div id="sidebar-footer"></div>
+            <div id="sidebar-footer"></div>
 
-    </aside>
-
-
-    <!-- =========================
-         Main Content
-    ========================== -->
-
-    <main id="main-content">
-
-        <!-- Top Header -->
-        <header id="top-header"></header>
+        </aside>
 
 
-        <!-- Dashboard -->
-        <section id="dashboard-page">
+        <!-- ==========================================
+             Main Content
+        =========================================== -->
 
-            <section id="countdown-section"></section>
+        <main id="main-content">
 
-            <section id="score-entry-section"></section>
+            <!-- ======================================
+                 Top Header
+            ======================================= -->
 
-            <section id="statistics-section"></section>
-
-            <section id="badge-section"></section>
-
-            <section id="improvement-section"></section>
-
-            <section id="motivation-section"></section>
-
-            <section id="chart-section"></section>
-
-            <section id="history-section"></section>
-
-        </section>
+            <header id="top-header"></header>
 
 
-        <!-- History -->
-        <section
-            id="history-page"
-            hidden>
-        </section>
+            <!-- ======================================
+                 Dashboard Page
+            ======================================= -->
+
+            <section id="dashboard-page">
+
+                <!-- ==============================
+                     Countdown Module
+                =============================== -->
+
+                <section id="countdown-section">
+
+                    <div class="countdown-card">
+
+                        <div class="countdown-header">
+
+                            <h2>Scholarship Examination</h2>
+
+                            <p class="exam-date" id="exam-date"></p>
+
+                            </p>
+
+                        </div>
 
 
-        <!-- Progress -->
-        <section
-            id="progress-page"
-            hidden>
-        </section>
+                        <div class="countdown-grid">
+
+                            <!-- Days -->
+
+                            <div class="countdown-box">
+
+                                <span class="count-value"
+                                      id="days">
+
+                                    000
+
+                                </span>
+
+                                <span class="count-label">
+
+                                    Days
+
+                                </span>
+
+                            </div>
 
 
-        <!-- Motivation -->
-        <section
-            id="motivation-page"
-            hidden>
-        </section>
+                            <!-- Hours -->
+
+                            <div class="countdown-box">
+
+                                <span class="count-value"
+                                      id="hours">
+
+                                    00
+
+                                </span>
+
+                                <span class="count-label">
+
+                                    Hours
+
+                                </span>
+
+                            </div>
 
 
-        <!-- Settings -->
-        <section
-            id="settings-page"
-            hidden>
-        </section>
+                            <!-- Minutes -->
+
+                            <div class="countdown-box">
+
+                                <span class="count-value"
+                                      id="minutes">
+
+                                    00
+
+                                </span>
+
+                                <span class="count-label">
+
+                                    Minutes
+
+                                </span>
+
+                            </div>
 
 
-        <!-- About -->
-        <section
-            id="about-page"
-            hidden>
-        </section>
+                            <!-- Seconds -->
 
-    </main>
+                            <div class="countdown-box">
 
-</div>
+                                <span class="count-value"
+                                      id="seconds">
+
+                                    00
+
+                                </span>
+
+                                <span class="count-label">
+
+                                    Seconds
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="countdown-status">
+
+                            <p id="countdown-message">
+
+                                Stay focused.
+                                Every day counts.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ==============================
+                     Daily Score Entry
+                =============================== -->
+
+                <section id="score-entry-section"></section>
+
+
+                <!-- ==============================
+                     Statistics
+                =============================== -->
+
+                <section id="statistics-section"></section>
+
+
+                <!-- ==============================
+                     Badges
+                =============================== -->
+
+                <section id="badge-section"></section>
+
+
+                <!-- ==============================
+                     Improvement
+                =============================== -->
+
+                <section id="improvement-section"></section>
+
+
+                <!-- ==============================
+                     Motivation
+                =============================== -->
+
+                <section id="motivation-section"></section>
+
+
+                <!-- ==============================
+                     Charts
+                =============================== -->
+
+                <section id="chart-section"></section>
+
+
+                <!-- ==============================
+                     History
+                =============================== -->
+
+                <section id="history-section"></section>
+
+            </section>
+
+
+            <!-- ======================================
+                 History Page
+            ======================================= -->
+
+            <section id="history-page" hidden></section>
+
+
+            <!-- ======================================
+                 Progress Page
+            ======================================= -->
+
+            <section id="progress-page" hidden></section>
+
+
+            <!-- ======================================
+                 Motivation Page
+            ======================================= -->
+
+            <section id="motivation-page" hidden></section>
+
+
+            <!-- ======================================
+                 Settings Page
+            ======================================= -->
+
+            <section id="settings-page" hidden></section>
+
+
+            <!-- ======================================
+                 About Page
+            ======================================= -->
+
+            <section id="about-page" hidden></section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ==========================================
+         JavaScript Files
+    =========================================== -->
 
     <script src="js/config.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
+
+    <script src="js/countdown.js"></script>
+
     <script src="js/main.js"></script>
 
 </body>
