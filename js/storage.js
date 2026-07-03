@@ -13,11 +13,13 @@ const Storage = (() => {
        Constants
     ====================================================== */
 
-    const KEY = "my-goal-data";
+    const KEY = CONFIG.STORAGE.KEY;
+
+    const STORAGE_VERSION = CONFIG.APP.VERSION;
 
     const DEFAULT_DATA = Object.freeze({
 
-        version: CONFIG.APP.VERSION,
+        version: STORAGE_VERSION,
 
         createdAt: null,
 
@@ -38,6 +40,12 @@ const Storage = (() => {
     ====================================================== */
 
     function clone(data) {
+
+          if (typeof structuredClone === "function") {
+
+        return structuredClone(data);
+
+    }
 
         return JSON.parse(JSON.stringify(data));
 
@@ -123,7 +131,7 @@ const Storage = (() => {
 
         if (!data.version) {
 
-            data.version = CONFIG.APP.VERSION;
+            data.version = STORAGE_VERSION;
 
         }
 
