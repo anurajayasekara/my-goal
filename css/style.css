@@ -666,3 +666,233 @@ section{
     color: #111827;
 
 }
+
+/* ==========================================================
+   Dashboard Header Module
+   Phase 04.5 - Build 4.5.1
+========================================================== */
+
+#dashboard-header-section {
+
+    margin-bottom: 30px;
+
+}
+
+
+/* ==========================================================
+   Welcome Card
+========================================================== */
+
+.welcome-card {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
+
+}
+
+.welcome-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 12px 28px rgba(91, 92, 235, .18);
+
+}
+
+
+/* ==========================================================
+   Welcome Header
+========================================================== */
+
+.welcome-header {
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    padding: 28px;
+
+}
+
+
+/* ==========================================================
+   Avatar
+========================================================== */
+
+.welcome-avatar {
+
+    width: 90px;
+
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.18);
+
+    border: 4px solid rgba(255,255,255,.30);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 42px;
+
+    flex-shrink: 0;
+
+}
+
+
+/* ==========================================================
+   Welcome Content
+========================================================== */
+
+.welcome-content {
+
+    flex: 1;
+
+}
+
+.welcome-greeting {
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    opacity: .95;
+
+    margin-bottom: 8px;
+
+}
+
+.welcome-content h2 {
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+/* ==========================================================
+   Welcome Information
+========================================================== */
+
+.welcome-information {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+    padding: 24px;
+
+    background: #fafbff;
+
+}
+
+
+/* ==========================================================
+   Information Card
+========================================================== */
+
+.welcome-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    transition: var(--transition);
+
+}
+
+.welcome-item:hover {
+
+    transform: translateY(-3px);
+
+    border-color: var(--primary);
+
+}
+
+
+.welcome-icon {
+
+    font-size: 24px;
+
+}
+
+
+.welcome-item span:last-child {
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color: var(--text);
+
+    line-height: 1.5;
+
+}
+
+
+/* ==========================================================
+   Animation
+========================================================== */
+
+.welcome-card {
+
+    animation: welcomeFade .5s ease;
+
+}
+
+@keyframes welcomeFade {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
