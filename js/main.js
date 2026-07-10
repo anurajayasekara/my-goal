@@ -25,6 +25,10 @@ function initializeApp() {
 
     initializeDailyScore();
 
+    initializeStatistics();
+
+}  
+
 /* ==========================================================
    Daily Score Module
 ========================================================== */
@@ -92,14 +96,6 @@ function initializeDailyScore() {
         }
 
     });
-
-}
-
-    if (typeof Countdown !== "undefined") {
-
-        Countdown.start();
-
-    }
 
 }
 

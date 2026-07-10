@@ -1164,3 +1164,92 @@ section{
     }
 
 }
+
+/* ==========================================================
+   Statistics Module
+   Phase 05.2 - Build 5.2.2
+========================================================== */
+
+#statistics-section {
+
+    margin-top: 24px;
+
+}
+
+.statistics-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+
+}
+
+.statistics-card {
+
+        background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 24px;
+
+    min-height: 180px;
+
+    text-align: center;
+
+    transition: var(--transition);
+
+}
+
+.statistics-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 12px 28px rgba(91, 92, 235, .15);
+
+}
+
+.statistics-card-wide {
+
+    grid-column: 1 / -1;
+
+}
+
+.statistics-icon {
+
+    font-size: 42px;
+
+    margin-bottom: 16px;
+
+}
+
+.statistics-title {
+
+    font-size: 16px;
+
+    color: var(--text-light);
+
+    font-weight: 600;
+
+    margin-bottom: 12px;
+
+}
+
+.statistics-value {
+
+    font-size: 42px;
+
+    font-weight: 700;
+
+    color: var(--primary);
+
+    line-height: 1.2;
+
+    margin-top: 8px;
+
+}
