@@ -40,6 +40,8 @@ function renderWelcomeCard() {
 
     }
 
+    const studentName = getStudentName() || "Student";
+
     container.innerHTML = `
 
         <div class="welcome-card">
@@ -64,7 +66,7 @@ function renderWelcomeCard() {
 
                     <h2 id="student-name">
 
-                        Student
+                        ${studentName}
 
                     </h2>
 
