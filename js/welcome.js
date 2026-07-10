@@ -301,3 +301,25 @@ function formatTime() {
     );
 
 }
+
+/* ==========================================================
+   Refresh Student Name
+========================================================== */
+
+function refreshStudentName() {
+
+    const element = document.getElementById(
+        "student-name"
+    );
+
+    if (!element) {
+
+        return;
+
+    }
+
+    element.textContent =
+        getStudentName() || "Student";
+
+}
+

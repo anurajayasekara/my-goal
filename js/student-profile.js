@@ -29,6 +29,14 @@ function initializeStudentProfile() {
 
     }
 
+    createStudentProfileModal();
+
+    if (!profile.name) {
+
+    showStudentProfileModal();
+
+}
+
     return profile;
 
 }
@@ -192,5 +200,187 @@ function updateStudentName(name) {
     profile.name = name.trim();
 
     return saveStudentProfile(profile);
+
+}
+
+/* ==========================================================
+   Create Student Profile Modal
+========================================================== */
+
+function createStudentProfileModal() {
+
+    if (document.getElementById("student-profile-modal")) {
+
+        return;
+
+    }
+
+    const modal = document.createElement("div");
+
+    modal.id = "student-profile-modal";
+
+    modal.className = "profile-modal-overlay";
+
+    
+
+    modal.innerHTML = `
+
+        <div class="profile-modal">
+
+            <div class="profile-modal-header">
+
+                <div class="profile-avatar">
+
+                    👩‍🎓
+
+                </div>
+
+                <h2>
+
+                    Student Profile
+
+                </h2>
+
+                <p>
+
+                    Enter your name to personalize your dashboard.
+
+                </p>
+
+            </div>
+
+            <div class="profile-modal-body">
+
+                <label for="profile-name-input">
+
+                    Student Name
+
+                </label>
+
+                <input
+                    id="profile-name-input"
+                    class="profile-input"
+                    type="text"
+                    maxlength="30"
+                    placeholder="Enter your name"
+                    autocomplete="off">
+
+            </div>
+
+            <div class="profile-modal-footer">
+
+                <button
+                    id="profile-cancel-button"
+                    class="profile-button secondary-button"
+                    type="button">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    id="profile-save-button"
+                    class="profile-button primary-button"
+                    type="button">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+    document.body.appendChild(modal);
+
+    const saveButton = document.getElementById(
+    "profile-save-button"
+);
+
+saveButton.addEventListener(
+    "click",
+    saveStudentProfileFromModal
+);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Show Student Profile Modal
+========================================================== */
+
+function showStudentProfileModal() {
+
+    const modal = document.getElementById(
+        "student-profile-modal"
+    );
+
+    if (!modal) {
+
+        return;
+
+    }
+
+    modal.classList.add("show");
+
+}
+
+
+/* ==========================================================
+   Hide Student Profile Modal
+========================================================== */
+
+function hideStudentProfileModal() {
+
+    const modal = document.getElementById(
+        "student-profile-modal"
+    );
+
+    if (!modal) {
+
+        return;
+
+    }
+
+    modal.classList.remove("show");
+
+}
+
+/* ==========================================================
+   Save Student Profile From Modal
+========================================================== */
+
+function saveStudentProfileFromModal() {
+
+    const input = document.getElementById(
+        "profile-name-input"
+    );
+
+    if (!input) {
+
+        return;
+
+    }
+
+    const name = input.value.trim();
+
+    if (!name) {
+
+        input.focus();
+
+        return;
+
+    }
+
+    updateStudentName(name);
+
+    hideStudentProfileModal();
+
+    refreshStudentName();
 
 }
