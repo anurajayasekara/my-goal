@@ -27,6 +27,12 @@ function initializeApp() {
 
     initializeStatistics();
 
+      if (typeof Countdown !== "undefined") {
+
+        Countdown.start();
+
+    }
+
 }  
 
 /* ==========================================================
