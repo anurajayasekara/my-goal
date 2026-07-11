@@ -27,13 +27,13 @@ function initializeApp() {
 
     initializeStatistics();
 
-      if (typeof Countdown !== "undefined") {
+    if (typeof Countdown !== "undefined") {
 
-        Countdown.start();
+        Countdown.init();
 
     }
 
-}  
+}
 
 /* ==========================================================
    Daily Score Module

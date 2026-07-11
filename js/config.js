@@ -62,6 +62,26 @@ const CONFIG = Object.freeze({
         SHOW_LEADING_ZERO: true,
 
         /* --------------------------------------------------
+           Countdown Titles
+        --------------------------------------------------- */
+
+        TITLES: Object.freeze({
+
+            JOURNEY: "Your Journey to Success",
+
+            FOCUSED: "Stay Focused",
+
+            REVISION: "Final Revision",
+
+            TOMORROW: "Tomorrow is the Day!",
+
+            EXAM: "Exam Day!",
+
+            COMPLETE: "Congratulations!"
+
+        }),
+
+        /* --------------------------------------------------
            Countdown Messages
         --------------------------------------------------- */
 
@@ -71,8 +91,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 100,
 
-                TEXT:
-                    "Your journey starts today."
+                TEXT: "Your journey starts today."
 
             }),
 
@@ -80,8 +99,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 60,
 
-                TEXT:
-                    "Stay focused. Success begins with today's effort."
+                TEXT: "Stay focused. Success begins with today's effort."
 
             }),
 
@@ -89,8 +107,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 31,
 
-                TEXT:
-                    "Stay focused. Every day counts."
+                TEXT: "Stay focused. Every day counts."
 
             }),
 
@@ -98,8 +115,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 8,
 
-                TEXT:
-                    "{days} days remaining. Keep going!"
+                TEXT: "{days} days remaining. Keep going!"
 
             }),
 
@@ -107,8 +123,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 2,
 
-                TEXT:
-                    "{days} days left. Give your best effort!"
+                TEXT: "{days} days left. Give your best effort!"
 
             }),
 
@@ -116,8 +131,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 1,
 
-                TEXT:
-                    "Tomorrow is your examination. Good luck!"
+                TEXT: "Tomorrow is your examination. Good luck!"
 
             }),
 
@@ -125,8 +139,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: 0,
 
-                TEXT:
-                    "Today is your examination."
+                TEXT: "Today is your examination."
 
             }),
 
@@ -134,8 +147,7 @@ const CONFIG = Object.freeze({
 
                 MINIMUM_DAYS: -1,
 
-                TEXT:
-                    "The examination has started."
+                TEXT: "The examination has started."
 
             })
 
@@ -286,15 +298,15 @@ const CONFIG = Object.freeze({
     ]),
 
     /* ======================================================
-        Storage
+       Storage
     ====================================================== */
 
     STORAGE: Object.freeze({
 
         KEY: "my-goal-data"
 
-}),
-    
+    }),
+
     /* ======================================================
        Theme
     ====================================================== */

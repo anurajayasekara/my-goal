@@ -17,12 +17,9 @@ function initializeWelcomeCard() {
 
     updateGreeting();
 
-    updateDate();
-
-    startClock();
+    startDateTime();
 
 }
-
 
 /* ==========================================================
    Render Welcome Card
@@ -70,46 +67,19 @@ function renderWelcomeCard() {
 
                     </h2>
 
-                </div>
+                    <p
+                        id="welcome-datetime"
+                        class="welcome-datetime">
 
-            </div>
+                        Loading...
 
-            <div class="welcome-information">
-
-                <div class="welcome-item">
-
-                    <span class="welcome-icon">
-
-                        📅
-
-                    </span>
-
-                    <span id="welcome-date">
-
-                        Loading date...
-
-                    </span>
-
-                </div>
-
-                <div class="welcome-item">
-
-                    <span class="welcome-icon">
-
-                        🕘
-
-                    </span>
-
-                    <span id="welcome-time">
-
-                        Loading time...
-
-                    </span>
+                    </p>
 
                 </div>
 
             </div>
 
+  
         </div>
 
     `;
@@ -146,37 +116,66 @@ function getGreeting() {
 
     const hour = new Date().getHours();
 
-    if (hour >= 5 && hour < 12) {
+    if (hour >= 5 && hour < 9) {
 
-        return "🌅 සුබ උදෑසනක්";
-
-    }
-
-    if (hour >= 12 && hour < 17) {
-
-        return "☀️ සුබ දහවලක්";
+        return "🌅 සුබ උදෑසනක්..!";
 
     }
 
-    if (hour >= 17 && hour < 19) {
+    if (hour >= 9 && hour < 12) {
 
-        return "🌇 සුබ සන්ධ්‍යාවක්";
+        return "🙏 ආයුබෝවන්..!";
 
     }
 
-    return "🌙 සුබ රාත්‍රියක්";
+    if (hour >= 12 && hour < 16) {
+
+        return "☀️ සුබ දහවලක්..!";
+
+    }
+
+    if (hour >= 16 && hour < 18) {
+
+        return "🌇 සුබ සන්ධ්‍යාවක්..!";
+
+    }
+
+    if (hour >= 18 && hour < 20) {
+
+        return "🌆 සුබ සැන්දෑවක්..!";
+
+    }
+
+    if (hour >= 20) {
+
+        return "🌙 සුබ රාත්‍රියක්..!";
+
+    }
+
+    return "🙏 ආයුබෝවන්..!";
 
 }
 
-
 /* ==========================================================
-   Date
+   Date & Time
 ========================================================== */
 
-function updateDate() {
+function startDateTime() {
+
+    updateDateTime();
+
+    setInterval(updateDateTime, 1000);
+
+}
+
+/* ==========================================================
+   Update Date & Time
+========================================================== */
+
+function updateDateTime() {
 
     const element = document.getElementById(
-        "welcome-date"
+        "welcome-datetime"
     );
 
     if (!element) {
@@ -185,16 +184,15 @@ function updateDate() {
 
     }
 
-    element.innerHTML = formatDate();
+    element.innerHTML = formatDateTime();
 
 }
 
-
 /* ==========================================================
-   Format Date
+   Format Date & Time
 ========================================================== */
 
-function formatDate() {
+function formatDateTime() {
 
     const now = new Date();
 
@@ -227,64 +225,7 @@ function formatDate() {
 
     ];
 
-    return `
-
-        ${now.getDate()}
-        ${months[now.getMonth()]}
-        ${now.getFullYear()}
-
-        <br>
-
-        ${days[now.getDay()]}
-
-    `;
-
-}
-
-
-/* ==========================================================
-   Clock
-========================================================== */
-
-function startClock() {
-
-    updateClock();
-
-    setInterval(updateClock, 1000);
-
-}
-
-
-/* ==========================================================
-   Update Clock
-========================================================== */
-
-function updateClock() {
-
-    const element = document.getElementById(
-        "welcome-time"
-    );
-
-    if (!element) {
-
-        return;
-
-    }
-
-    element.textContent = formatTime();
-
-}
-
-
-/* ==========================================================
-   Format Time
-========================================================== */
-
-function formatTime() {
-
-    const now = new Date();
-
-    return now.toLocaleTimeString(
+    const time = now.toLocaleTimeString(
         "en-US",
         {
 
@@ -299,6 +240,22 @@ function formatTime() {
         }
 
     );
+
+    return `
+
+        📅 ${now.getDate()}
+        ${months[now.getMonth()]}
+        ${now.getFullYear()}
+
+        •
+
+        ${days[now.getDay()]}
+
+        •
+
+        🕘 ${time}
+
+    `;
 
 }
 

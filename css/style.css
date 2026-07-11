@@ -452,7 +452,7 @@ section{
 
 .countdown-status{
 
-    margin-top:28px;
+    margin-top:12px;
 
     text-align:center;
 
@@ -1251,5 +1251,103 @@ section{
     line-height: 1.2;
 
     margin-top: 8px;
+
+}
+
+/* ==========================================================
+   Hero Countdown Layout
+========================================================== */
+
+.countdown-hero {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 2px;
+
+    padding: 10px 20px;
+
+}
+
+.countdown-days {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+.hero-days {
+
+    font-size: 88px;
+
+    font-weight: 700;
+
+    color: var(--primary);
+
+    line-height: 1;
+
+}
+
+.hero-label {
+
+    margin-top: 2px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    color: var(--text-light);
+
+}
+
+.countdown-time {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 4px;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+}
+
+.time-value {
+
+    color: var(--primary);
+
+    font-weight: 700;
+
+}
+
+.time-label {
+
+    color: var(--text-light);
+
+}
+
+.time-separator {
+
+    color: var(--primary);
+
+    margin: 0 6px;
 
 }
