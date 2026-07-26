@@ -189,6 +189,46 @@ const Utils = (() => {
 
     }
 
+    function targetProgress(score) {
+
+        return Number(
+
+        (
+
+            (score / CONFIG.SCORE.TARGET) * 100
+
+        ).toFixed(2)
+
+    );
+
+    }
+
+    function remainingToTarget(score) {
+
+        return Math.max(
+
+        0,
+
+        CONFIG.SCORE.TARGET - score
+
+    );
+
+    }
+
+    function practiceDays(scores) {
+
+        return scores.length;
+
+    }   
+
+    function hasReachedTarget(score) {
+
+        return score >= CONFIG.SCORE.TARGET;
+
+    }
+
+/* Badge */        
+      
     /* ======================================================
        Badge
     ====================================================== */
@@ -244,6 +284,14 @@ const Utils = (() => {
         highest,
 
         lowest,
+         
+        targetProgress,
+
+        remainingToTarget,
+
+        practiceDays,
+
+        hasReachedTarget,
 
         badge
 
