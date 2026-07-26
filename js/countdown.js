@@ -196,34 +196,32 @@ const Countdown = (() => {
 
     function init() {
 
-    console.log("=== Countdown DOM Debug ===");
+        if (
+            !ELEMENTS.title ||
+            !ELEMENTS.examDate ||
+            !ELEMENTS.days ||
+            !ELEMENTS.hours ||
+            !ELEMENTS.minutes ||
+            !ELEMENTS.seconds
+        ) {
 
-    console.log("title:", ELEMENTS.title);
-    console.log("examDate:", ELEMENTS.examDate);
-    console.log("days:", ELEMENTS.days);
-    console.log("hours:", ELEMENTS.hours);
-    console.log("minutes:", ELEMENTS.minutes);
-    console.log("seconds:", ELEMENTS.seconds);
+            console.error("Countdown: Required DOM elements not found.");
 
-    if (
-        !ELEMENTS.title ||
-        !ELEMENTS.examDate ||
-        !ELEMENTS.days ||
-        !ELEMENTS.hours ||
-        !ELEMENTS.minutes ||
-        !ELEMENTS.seconds
-    ) {
+            return;
 
-        console.error("Countdown: Required DOM elements not found.");
+        }
 
-        return;
+        ELEMENTS.examDate.textContent = CONFIG.EXAM.DISPLAY_DATE;
+
+        start();
 
     }
 
-    ELEMENTS.examDate.textContent = CONFIG.EXAM.DISPLAY_DATE;
 
-    start();
+    return Object.freeze({
 
-}
+        init
+
+    });
 
 })();
