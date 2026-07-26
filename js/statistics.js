@@ -129,12 +129,23 @@ function renderStatistics() {
                 </div>
 
                 <div
-                    id="target-progress"
-                    class="statistics-value">
+    id="target-progress"
+    class="statistics-value">
 
-                    --
+    --
 
-                </div>
+</div>
+
+<div class="progress-bar">
+
+    <div
+        id="target-progress-bar"
+        class="progress-fill">
+    </div>
+
+</div>
+
+</div>
 
             </div>
 
@@ -264,19 +275,35 @@ function updatePracticeDays() {
 
 function updateTargetProgress() {
 
-    const element = document.getElementById(
-        "target-progress"
-    );
+    const valueElement =
+        document.getElementById(
+            "target-progress"
+        );
 
-    if (!element) {
+    const progressBar =
+        document.getElementById(
+            "target-progress-bar"
+        );
+
+    if (!valueElement || !progressBar) {
 
         return;
 
     }
 
-    const statistics = App.getStatistics();
+    const statistics =
+        App.getStatistics();
 
-    element.textContent =
+    valueElement.textContent =
         `${statistics.targetProgress}%`;
+
+    const width =
+        Math.min(
+            statistics.targetProgress,
+            100
+        );
+
+    progressBar.style.width =
+        `${width}%`;
 
 }
