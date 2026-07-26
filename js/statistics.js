@@ -208,7 +208,9 @@ function updateBestScore() {
 
     }
 
-    element.textContent = "--";
+    const statistics = App.getStatistics();
+
+    element.textContent = statistics.highest;
 
 }
 
@@ -228,7 +230,9 @@ function updateAverageScore() {
 
     }
 
-    element.textContent = "--";
+    const statistics = App.getStatistics();
+
+    element.textContent = statistics.average;
 
 }
 
@@ -248,7 +252,9 @@ function updatePracticeDays() {
 
     }
 
-    element.textContent = "--";
+    const statistics = App.getStatistics();
+
+    element.textContent = statistics.practiceDays;
 
 }
 
@@ -268,6 +274,9 @@ function updateTargetProgress() {
 
     }
 
-    element.textContent = "--";
+    const statistics = App.getStatistics();
+
+    element.textContent =
+        `${statistics.targetProgress}%`;
 
 }

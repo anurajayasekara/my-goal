@@ -208,31 +208,63 @@ const App = (() => {
 
     function getStatistics() {
 
-        const scores = getScoreList();
+    const scores = getScoreList();
 
-        const latest = scores.length
+    const latest = scores.length
 
-            ? scores[scores.length - 1]
+        ? scores[scores.length - 1]
 
-            : 0;
+        : 0;
+
+    const highest = Utils.highest(scores);
+
+    const lowest = Utils.lowest(scores);
+
+    const average = Utils.average(scores);
+
+    const percentage = Utils.percentage(latest);
+
+    const targetProgress = Utils.targetProgress(latest);
+
+    const remainingToTarget =
+
+        Utils.remainingToTarget(latest);
+
+    const practiceDays =
+
+        Utils.practiceDays(scores);
+
+    const hasReachedTarget =
+
+        Utils.hasReachedTarget(latest);
+
+    const badge = Utils.badge(latest);
 
         return {
 
-            latest,
+        latest,
 
-            highest: Utils.highest(scores),
+        highest,
 
-            lowest: Utils.lowest(scores),
+        lowest,
 
-            average: Utils.average(scores),
+        average,
 
-            percentage: Utils.percentage(latest),
+        percentage,
 
-            badge: Utils.badge(latest)
+        targetProgress,
 
-        };
+        remainingToTarget,
 
-    }
+        practiceDays,
+
+        hasReachedTarget,
+
+        badge
+
+    };
+
+}
 
     /* ======================================================
        Reset
