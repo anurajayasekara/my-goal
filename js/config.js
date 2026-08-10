@@ -37,11 +37,11 @@ const CONFIG = Object.freeze({
 
         TITLE: "Grade 5 Scholarship Examination",
 
-        DATE_TIME: "2026-08-09T09:30:00+05:30",
+        DATE_TIME: "2027-08-08T09:30:00+05:30",
 
         TIMEZONE: "Asia/Colombo",
 
-        DISPLAY_DATE: "09 August 2026",
+        DISPLAY_DATE: "08 August 2027",
 
         DISPLAY_TIME: "09:30 AM"
 

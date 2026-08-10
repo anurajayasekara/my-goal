@@ -3,7 +3,7 @@
 /* ==========================================================
    My Goal
    Countdown Module
-   Phase 03 - Build 3.5 Stable
+   Phase 06 - Countdown Fix 6.0
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
@@ -38,7 +38,7 @@ const Countdown = (() => {
 
 
     /* ======================================================
-       Private Helpers
+       Format Time
     ====================================================== */
 
     function formatTime(value) {
@@ -48,31 +48,79 @@ const Countdown = (() => {
     }
 
 
+    /* ======================================================
+       Get Exam Timestamp
+    ====================================================== */
+
+    function getExamTimestamp() {
+
+        const timestamp =
+            Date.parse(CONFIG.EXAM.DATE_TIME);
+
+        if (Number.isNaN(timestamp)) {
+
+            console.error(
+                "Countdown: Invalid examination date.",
+                CONFIG.EXAM.DATE_TIME
+            );
+
+            return null;
+
+        }
+
+        return timestamp;
+
+    }
+
+
+    /* ======================================================
+       Update Title
+    ====================================================== */
+
     function updateTitle(data) {
+
+        if (data.total <= 0) {
+
+            ELEMENTS.title.textContent =
+                CONFIG.COUNTDOWN.TITLES.COMPLETE;
+
+            return;
+
+        }
+
 
         if (data.days >= 31) {
 
-            ELEMENTS.title.textContent = CONFIG.COUNTDOWN.TITLES.JOURNEY;
+            ELEMENTS.title.textContent =
+                CONFIG.COUNTDOWN.TITLES.JOURNEY;
 
-        } else if (data.days >= 8) {
+        }
 
-            ELEMENTS.title.textContent = CONFIG.COUNTDOWN.TITLES.FOCUSED;
+        else if (data.days >= 8) {
 
-        } else if (data.days >= 2) {
+            ELEMENTS.title.textContent =
+                CONFIG.COUNTDOWN.TITLES.FOCUSED;
 
-            ELEMENTS.title.textContent = CONFIG.COUNTDOWN.TITLES.REVISION;
+        }
 
-        } else if (data.days === 1) {
+        else if (data.days >= 2) {
 
-            ELEMENTS.title.textContent = CONFIG.COUNTDOWN.TITLES.TOMORROW;
+            ELEMENTS.title.textContent =
+                CONFIG.COUNTDOWN.TITLES.REVISION;
 
-        } else if (data.days === 0 && data.total > 0) {
+        }
 
-            ELEMENTS.title.textContent = CONFIG.COUNTDOWN.TITLES.EXAM;
+        else if (data.days === 1) {
 
-        } else {
+            ELEMENTS.title.textContent =
+                CONFIG.COUNTDOWN.TITLES.TOMORROW;
 
-            ELEMENTS.title.textContent = CONFIG.COUNTDOWN.TITLES.COMPLETE;
+        }
+
+        else {
+
+            ELEMENTS.title.textContent =
+                CONFIG.COUNTDOWN.TITLES.EXAM;
 
         }
 
@@ -80,56 +128,108 @@ const Countdown = (() => {
 
 
     /* ======================================================
-       Private Methods
+       Calculate Countdown
     ====================================================== */
 
-    function update() {
+    function calculate() {
 
-        const now = new Date();
+        const examTimestamp =
+            getExamTimestamp();
 
-        const examDate = new Date(CONFIG.EXAM.DATE_TIME);
-
-        const difference = examDate.getTime() - now.getTime();
-
-        if (difference <= 0) {
+        if (examTimestamp === null) {
 
             return {
 
                 total: 0,
+
                 days: 0,
+
                 hours: 0,
+
                 minutes: 0,
+
                 seconds: 0
 
             };
 
         }
 
-        const days = Math.floor(
-            difference / (1000 * 60 * 60 * 24)
-        );
 
-        const hours = Math.floor(
-            (difference % (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
-        );
+        const nowTimestamp = Date.now();
 
-        const minutes = Math.floor(
-            (difference % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
+        let difference =
+            examTimestamp - nowTimestamp;
 
-        const seconds = Math.floor(
-            (difference % (1000 * 60)) /
-            1000
-        );
+
+        /* --------------------------------------------------
+           Examination has already started / finished
+        --------------------------------------------------- */
+
+        if (difference <= 0) {
+
+            return {
+
+                total: 0,
+
+                days: 0,
+
+                hours: 0,
+
+                minutes: 0,
+
+                seconds: 0
+
+            };
+
+        }
+
+
+        /* --------------------------------------------------
+           Time Units
+        --------------------------------------------------- */
+
+        const SECOND = 1000;
+
+        const MINUTE = SECOND * 60;
+
+        const HOUR = MINUTE * 60;
+
+        const DAY = HOUR * 24;
+
+
+        const days =
+            Math.floor(difference / DAY);
+
+        difference %= DAY;
+
+
+        const hours =
+            Math.floor(difference / HOUR);
+
+        difference %= HOUR;
+
+
+        const minutes =
+            Math.floor(difference / MINUTE);
+
+        difference %= MINUTE;
+
+
+        const seconds =
+            Math.floor(difference / SECOND);
+
 
         return {
 
-            total: difference,
+            total:
+                examTimestamp - nowTimestamp,
+
             days,
+
             hours,
+
             minutes,
+
             seconds
 
         };
@@ -137,20 +237,32 @@ const Countdown = (() => {
     }
 
 
+    /* ======================================================
+       Render
+    ====================================================== */
+
     function render(data) {
 
-        ELEMENTS.days.textContent = data.days;
+        ELEMENTS.days.textContent =
+            data.days;
 
-        ELEMENTS.hours.textContent = formatTime(data.hours);
+        ELEMENTS.hours.textContent =
+            formatTime(data.hours);
 
-        ELEMENTS.minutes.textContent = formatTime(data.minutes);
+        ELEMENTS.minutes.textContent =
+            formatTime(data.minutes);
 
-        ELEMENTS.seconds.textContent = formatTime(data.seconds);
+        ELEMENTS.seconds.textContent =
+            formatTime(data.seconds);
 
         updateTitle(data);
 
     }
 
+
+    /* ======================================================
+       Stop Timer
+    ====================================================== */
 
     function stop() {
 
@@ -165,15 +277,21 @@ const Countdown = (() => {
     }
 
 
+    /* ======================================================
+       Start Timer
+    ====================================================== */
+
     function start() {
 
         stop();
 
+
         const refresh = () => {
 
-            const data = update();
+            const data = calculate();
 
             render(data);
+
 
             if (data.total <= 0) {
 
@@ -183,15 +301,20 @@ const Countdown = (() => {
 
         };
 
+
         refresh();
 
-        timer = setInterval(refresh, 1000);
+        timer =
+            setInterval(
+                refresh,
+                CONFIG.COUNTDOWN.UPDATE_INTERVAL
+            );
 
     }
 
 
     /* ======================================================
-       Public API
+       Initialize
     ====================================================== */
 
     function init() {
@@ -205,18 +328,27 @@ const Countdown = (() => {
             !ELEMENTS.seconds
         ) {
 
-            console.error("Countdown: Required DOM elements not found.");
+            console.error(
+                "Countdown: Required DOM elements not found."
+            );
 
             return;
 
         }
 
-        ELEMENTS.examDate.textContent = CONFIG.EXAM.DISPLAY_DATE;
+
+        ELEMENTS.examDate.textContent =
+            CONFIG.EXAM.DISPLAY_DATE;
+
 
         start();
 
     }
 
+
+    /* ======================================================
+       Public API
+    ====================================================== */
 
     return Object.freeze({
 
