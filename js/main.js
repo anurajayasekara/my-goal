@@ -3,14 +3,23 @@
 /* ==========================================================
    My Goal
    Main Controller
-   Phase 03 - Build 3.2A
+   Phase 05 - Daily Score & Statistics Integration
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
-document.addEventListener("DOMContentLoaded", initializeApp);
 
 /* ==========================================================
    Application Bootstrap
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeApp
+);
+
+
+/* ==========================================================
+   Initialize Application
 ========================================================== */
 
 function initializeApp() {
@@ -27,6 +36,11 @@ function initializeApp() {
 
     initializeStatistics();
 
+
+    /* ------------------------------------------------------
+       Countdown
+    ------------------------------------------------------ */
+
     if (typeof Countdown !== "undefined") {
 
         Countdown.init();
@@ -35,75 +49,223 @@ function initializeApp() {
 
 }
 
+
 /* ==========================================================
    Daily Score Module
 ========================================================== */
 
 function initializeDailyScore() {
 
-    const input = document.getElementById("daily-score-input");
-    const button = document.getElementById("daily-score-save-button");
-    const message = document.getElementById("daily-score-message");
+    const input =
+        document.getElementById(
+            "daily-score-input"
+        );
 
-    if (!input || !button || !message) {
+    const button =
+        document.getElementById(
+            "daily-score-save-button"
+        );
+
+    const message =
+        document.getElementById(
+            "daily-score-message"
+        );
+
+
+    /* ------------------------------------------------------
+       Required Elements Check
+    ------------------------------------------------------ */
+
+    if (
+        !input ||
+        !button ||
+        !message
+    ) {
 
         return;
 
     }
 
-    document.getElementById("score-maximum").textContent =
-        CONFIG.SCORE.MAXIMUM;
 
-    document.getElementById("score-target").textContent =
-        CONFIG.SCORE.TARGET;
+    /* ------------------------------------------------------
+       Score Information
+    ------------------------------------------------------ */
 
-    const today = App.getTodayScore();
+    const maximum =
+        document.getElementById(
+            "score-maximum"
+        );
+
+    const target =
+        document.getElementById(
+            "score-target"
+        );
+
+
+    if (maximum) {
+
+        maximum.textContent =
+            CONFIG.SCORE.MAXIMUM;
+
+    }
+
+
+    if (target) {
+
+        target.textContent =
+            CONFIG.SCORE.TARGET;
+
+    }
+
+
+    /* ------------------------------------------------------
+       Check Today's Existing Score
+    ------------------------------------------------------ */
+
+    const today =
+        App.getTodayScore();
+
 
     if (today) {
 
-        input.value = today.score;
+        input.value =
+            today.score;
 
-        input.disabled = true;
+        input.disabled =
+            true;
 
-        button.disabled = true;
+        button.disabled =
+            true;
 
         message.textContent =
             "Today's score has already been saved.";
 
-        message.style.color = CONFIG.THEME.INFO;
+        message.style.color =
+            CONFIG.THEME.INFO;
 
     }
 
-    button.addEventListener("click", () => {
+
+    /* ======================================================
+       Save Score
+    ====================================================== */
+
+    function saveScore() {
+
+        /* --------------------------------------------------
+           Prevent Duplicate Save
+        -------------------------------------------------- */
+
+        if (input.disabled) {
+
+            return;
+
+        }
+
+
+        /* --------------------------------------------------
+           Clear Previous Message
+        -------------------------------------------------- */
 
         message.textContent = "";
 
+
         try {
 
-            App.submitDailyScore(input.value);
+            /* ----------------------------------------------
+               Save Today's Score
+            ---------------------------------------------- */
 
-            input.disabled = true;
+            App.submitDailyScore(
+                input.value
+            );
 
-            button.disabled = true;
+
+            /* ----------------------------------------------
+               Lock Input After Successful Save
+            ---------------------------------------------- */
+
+            input.disabled =
+                true;
+
+            button.disabled =
+                true;
+
+
+            /* ----------------------------------------------
+               Success Message
+            ---------------------------------------------- */
 
             message.textContent =
                 "Today's score saved successfully.";
 
-            message.style.color = CONFIG.THEME.SUCCESS;
+            message.style.color =
+                CONFIG.THEME.SUCCESS;
+
+
+            /* ----------------------------------------------
+               Notify Other Modules
+               Daily Score → Statistics
+            ---------------------------------------------- */
+
+            document.dispatchEvent(
+
+                new CustomEvent(
+                    "dailyScoreSaved"
+                )
+
+            );
 
         }
 
         catch (error) {
 
-            message.textContent = error.message;
+            /* ----------------------------------------------
+               Error Message
+            ---------------------------------------------- */
 
-            message.style.color = CONFIG.THEME.DANGER;
+            message.textContent =
+                error.message;
+
+            message.style.color =
+                CONFIG.THEME.DANGER;
 
         }
 
-    });
+    }
+
+
+    /* ======================================================
+       Save Button
+    ====================================================== */
+
+    button.addEventListener(
+        "click",
+        saveScore
+    );
+
+
+    /* ======================================================
+       Enter Key
+    ====================================================== */
+
+    input.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                saveScore();
+
+            }
+
+        }
+    );
 
 }
+
 
 /* ==========================================================
    Sidebar
@@ -117,15 +279,25 @@ function renderSidebar() {
 
 }
 
+
 /* ==========================================================
    Sidebar Brand
 ========================================================== */
 
 function renderSidebarBrand() {
 
-    const header = document.getElementById("sidebar-header");
+    const header =
+        document.getElementById(
+            "sidebar-header"
+        );
 
-    if (!header) return;
+
+    if (!header) {
+
+        return;
+
+    }
+
 
     header.innerHTML = `
 
@@ -155,39 +327,57 @@ function renderSidebarBrand() {
 
 }
 
+
 /* ==========================================================
    Sidebar Navigation
 ========================================================== */
 
 function renderSidebarNavigation() {
 
-    const nav = document.getElementById("sidebar-navigation");
+    const nav =
+        document.getElementById(
+            "sidebar-navigation"
+        );
 
-    if (!nav) return;
 
-    nav.innerHTML = CONFIG.SIDEBAR.MENU.map(item => `
+    if (!nav) {
 
-        <button
-            class="sidebar-menu-item ${item.active ? "active" : ""}"
-            data-page="${item.id}">
+        return;
 
-            <span class="menu-icon">
+    }
 
-                ${item.icon}
 
-            </span>
+    nav.innerHTML =
+        CONFIG.SIDEBAR.MENU
+            .map(item => `
 
-            <span class="menu-title">
+                <button
+                    class="sidebar-menu-item ${
+                        item.active
+                            ? "active"
+                            : ""
+                    }"
+                    data-page="${item.id}">
 
-                ${item.title}
+                    <span class="menu-icon">
 
-            </span>
+                        ${item.icon}
 
-        </button>
+                    </span>
 
-    `).join("");
+                    <span class="menu-title">
+
+                        ${item.title}
+
+                    </span>
+
+                </button>
+
+            `)
+            .join("");
 
 }
+
 
 /* ==========================================================
    Top Header
@@ -195,9 +385,18 @@ function renderSidebarNavigation() {
 
 function renderHeader() {
 
-    const header = document.getElementById("top-header");
+    const header =
+        document.getElementById(
+            "top-header"
+        );
 
-    if (!header) return;
+
+    if (!header) {
+
+        return;
+
+    }
+
 
     header.innerHTML = `
 
