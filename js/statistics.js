@@ -1,14 +1,15 @@
 "use strict";
 
 /* ==========================================================
-   My Goal
-   Statistics Module
-   Phase 05.2 - Build 5.2.1
-   Designed & Developed by Anura Jayasekara
+My Goal
+Statistics Module
+Phase 05.2 - Build 5.2.1
+Designed & Developed by Anura Jayasekara
 ========================================================== */
 
+
 /* ==========================================================
-   Initialize Statistics
+Initialize Statistics
 ========================================================== */
 
 function initializeStatistics() {
@@ -16,10 +17,22 @@ function initializeStatistics() {
     renderStatistics();
 
     updateStatistics();
+
+    /* ------------------------------------------------------
+       Listen for Daily Score Save
+       Daily Score → Statistics Refresh
+    ------------------------------------------------------ */
+
+    document.addEventListener(
+        "dailyScoreSaved",
+        updateStatistics
+    );
+
 }
 
+
 /* ==========================================================
-   Render Statistics Cards
+Render Statistics Cards
 ========================================================== */
 
 function renderStatistics() {
@@ -58,6 +71,7 @@ function renderStatistics() {
 
             </div>
 
+
             <div class="statistics-card">
 
                 <div class="statistics-icon">🏆</div>
@@ -77,6 +91,7 @@ function renderStatistics() {
                 </div>
 
             </div>
+
 
             <div class="statistics-card">
 
@@ -98,6 +113,7 @@ function renderStatistics() {
 
             </div>
 
+
             <div class="statistics-card">
 
                 <div class="statistics-icon">📅</div>
@@ -118,6 +134,7 @@ function renderStatistics() {
 
             </div>
 
+
             <div class="statistics-card statistics-card-wide">
 
                 <div class="statistics-icon">🎯</div>
@@ -129,23 +146,26 @@ function renderStatistics() {
                 </div>
 
                 <div
-    id="target-progress"
-    class="statistics-value">
+                    id="target-progress"
+                    class="statistics-value">
 
-    --
+                    --
 
-</div>
+                </div>
 
-<div class="progress-bar">
 
-    <div
-        id="target-progress-bar"
-        class="progress-fill">
-    </div>
+                <!-- ======================================
+                     Target Progress Bar
+                ======================================= -->
 
-</div>
+                <div class="progress-bar">
 
-</div>
+                    <div
+                        id="target-progress-bar"
+                        class="progress-fill">
+                    </div>
+
+                </div>
 
             </div>
 
@@ -155,8 +175,9 @@ function renderStatistics() {
 
 }
 
+
 /* ==========================================================
-   Update Statistics
+Update Statistics
 ========================================================== */
 
 function updateStatistics() {
@@ -173,8 +194,9 @@ function updateStatistics() {
 
 }
 
+
 /* ==========================================================
-   Today's Score
+Today's Score
 ========================================================== */
 
 function updateTodayScore() {
@@ -203,8 +225,9 @@ function updateTodayScore() {
 
 }
 
+
 /* ==========================================================
-   Best Score
+Best Score
 ========================================================== */
 
 function updateBestScore() {
@@ -225,8 +248,9 @@ function updateBestScore() {
 
 }
 
+
 /* ==========================================================
-   Average Score
+Average Score
 ========================================================== */
 
 function updateAverageScore() {
@@ -247,8 +271,9 @@ function updateAverageScore() {
 
 }
 
+
 /* ==========================================================
-   Practice Days
+Practice Days
 ========================================================== */
 
 function updatePracticeDays() {
@@ -269,8 +294,9 @@ function updatePracticeDays() {
 
 }
 
+
 /* ==========================================================
-   Target Progress
+Target Progress
 ========================================================== */
 
 function updateTargetProgress() {
@@ -294,14 +320,33 @@ function updateTargetProgress() {
     const statistics =
         App.getStatistics();
 
+
+    /* ------------------------------------------------------
+       Display Percentage
+    ------------------------------------------------------ */
+
     valueElement.textContent =
         `${statistics.targetProgress}%`;
 
+
+    /* ------------------------------------------------------
+       Limit Progress Bar Width
+       Maximum = 100%
+    ------------------------------------------------------ */
+
     const width =
         Math.min(
-            statistics.targetProgress,
+            Math.max(
+                statistics.targetProgress,
+                0
+            ),
             100
         );
+
+
+    /* ------------------------------------------------------
+       Update Progress Bar
+    ------------------------------------------------------ */
 
     progressBar.style.width =
         `${width}%`;
