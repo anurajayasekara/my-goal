@@ -57,7 +57,13 @@ function renderStatistics() {
 
                 <div class="statistics-title">
 
-                    Today's Score
+                    <span class="label-english">
+                        Today's Score
+                    </span>
+
+                    <span class="label-sinhala">
+                        | අද දවසේ ලකුණු
+                    </span>
 
                 </div>
 
@@ -78,7 +84,13 @@ function renderStatistics() {
 
                 <div class="statistics-title">
 
-                    Best Score
+                    <span class="label-english">
+                        Best Score
+                    </span>
+
+                    <span class="label-sinhala">
+                        | මෙතෙක් ලබා ගත් ඉහළ ම ලකුණ
+                    </span>
 
                 </div>
 
@@ -99,7 +111,13 @@ function renderStatistics() {
 
                 <div class="statistics-title">
 
-                    Average Score
+                    <span class="label-english">
+                        Average Score
+                    </span>
+
+                    <span class="label-sinhala">
+                        | සාමාන්‍ය අගය
+                    </span>
 
                 </div>
 
@@ -120,7 +138,13 @@ function renderStatistics() {
 
                 <div class="statistics-title">
 
-                    Practice Days
+                    <span class="label-english">
+                        Practice Days
+                    </span>
+
+                    <span class="label-sinhala">
+                        | ලකුණු ඇතුළත් කළ දින ගණන
+                    </span>
 
                 </div>
 
@@ -141,7 +165,13 @@ function renderStatistics() {
 
                 <div class="statistics-title">
 
-                    Today's Target Progress | අද දවසේ ප්‍රගතිය
+                    <span class="label-english">
+                        Today's Target Progress
+                    </span>
+
+                    <span class="label-sinhala">
+                        | අද දවසේ ප්‍රගතිය
+                    </span>
 
                 </div>
 
