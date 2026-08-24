@@ -141,7 +141,7 @@ function renderStatistics() {
 
                 <div class="statistics-title">
 
-                    Target Progress
+                    Today's Target Progress | අද දවසේ ප්‍රගතිය
 
                 </div>
 
