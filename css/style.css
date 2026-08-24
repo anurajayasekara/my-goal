@@ -1380,3 +1380,16 @@ section{
     margin: 0 6px;
 
 }
+
+/* ==========================================================
+   Statistics Bilingual Labels
+   Build 02
+========================================================== */
+
+.label-english {
+    color: #7B61FF;
+}
+
+.label-sinhala {
+    color: #173B7A;
+}
