@@ -3,7 +3,7 @@
 /* ==========================================================
    My Goal
    Main Controller
-   Phase 05 - Daily Score & Statistics Integration
+   Phase 04 - Daily Score & Statistics Integration
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
@@ -41,7 +41,10 @@ function initializeApp() {
        Countdown
     ------------------------------------------------------ */
 
-    if (typeof Countdown !== "undefined") {
+    if (
+        typeof Countdown !==
+        "undefined"
+    ) {
 
         Countdown.init();
 
@@ -253,7 +256,10 @@ function initializeDailyScore() {
         "keydown",
         event => {
 
-            if (event.key === "Enter") {
+            if (
+                event.key ===
+                "Enter"
+            ) {
 
                 event.preventDefault();
 
@@ -349,6 +355,7 @@ function renderSidebarNavigation() {
 
     nav.innerHTML =
         CONFIG.SIDEBAR.MENU
+
             .map(item => `
 
                 <button
@@ -374,6 +381,7 @@ function renderSidebarNavigation() {
                 </button>
 
             `)
+
             .join("");
 
 }
@@ -451,3 +459,177 @@ function renderHeader() {
     `;
 
 }
+
+
+/* ==========================================================
+   Daily Score - Midnight Rollover
+   One Score Per Local Calendar Day
+
+   Purpose:
+   Detect the transition from one local calendar day
+   to the next and refresh the Daily Score UI.
+
+   Example:
+
+   23:59 → Day A
+   00:00 → Day B
+
+   A student who saved a score at 23:59 can therefore
+   enter a new score after midnight.
+========================================================== */
+
+let dailyScoreDayKey =
+    Utils.getTodayKey();
+
+
+function watchDailyScoreDay() {
+
+    const currentDayKey =
+        Utils.getTodayKey();
+
+
+    /* ------------------------------------------------------
+       Same Day → Nothing To Do
+    ------------------------------------------------------ */
+
+    if (
+        currentDayKey ===
+        dailyScoreDayKey
+    ) {
+
+        return;
+
+    }
+
+
+    /* ------------------------------------------------------
+       New Local Calendar Day
+    ------------------------------------------------------ */
+
+    dailyScoreDayKey =
+        currentDayKey;
+
+
+    const input =
+        document.getElementById(
+            "daily-score-input"
+        );
+
+    const button =
+        document.getElementById(
+            "daily-score-save-button"
+        );
+
+    const message =
+        document.getElementById(
+            "daily-score-message"
+        );
+
+
+    /* ------------------------------------------------------
+       Check Whether Today's Score Already Exists
+    ------------------------------------------------------ */
+
+    const today =
+        App.getTodayScore();
+
+
+    /* ======================================================
+       Today's Score Already Saved
+    ====================================================== */
+
+    if (today) {
+
+        if (input) {
+
+            input.value =
+                today.score;
+
+            input.disabled =
+                true;
+
+        }
+
+
+        if (button) {
+
+            button.disabled =
+                true;
+
+        }
+
+
+        if (message) {
+
+            message.textContent =
+                "Today's score has already been saved.";
+
+            message.style.color =
+                CONFIG.THEME.INFO;
+
+        }
+
+    }
+
+
+    /* ======================================================
+       New Day - No Score Yet
+    ====================================================== */
+
+    else {
+
+        if (input) {
+
+            input.value = "";
+
+            input.disabled =
+                false;
+
+        }
+
+
+        if (button) {
+
+            button.disabled =
+                false;
+
+        }
+
+
+        if (message) {
+
+            message.textContent = "";
+
+        }
+
+    }
+
+
+    /* ======================================================
+       Refresh Statistics
+    ====================================================== */
+
+    if (
+        typeof updateStatistics ===
+        "function"
+    ) {
+
+        updateStatistics();
+
+    }
+
+}
+
+
+/* ==========================================================
+   Local Midnight Watch
+
+   The check runs every second so the UI can automatically
+   move into the new day's score-entry state without requiring
+   a page reload.
+========================================================== */
+
+setInterval(
+    watchDailyScoreDay,
+    1000
+);

@@ -3,7 +3,7 @@
 /* ==========================================================
    My Goal
    Utility Functions
-   Phase 04 - Compatibility Patch 4.0
+   Build 4.1 - Statistics Support
    Designed & Developed by Anura Jayasekara
 ========================================================== */
 
@@ -27,43 +27,95 @@ const Utils = (() => {
 
     function examDate() {
 
-        return new Date(CONFIG.EXAM.DATE_TIME);
+        return new Date(
+            CONFIG.EXAM.DATE_TIME
+        );
 
     }
 
+    /* ======================================================
+       Local Calendar Date Key
+
+       One Daily Score = One Local Calendar Day
+
+       Example:
+       23:59 → previous calendar day
+       00:00 → new calendar day
+    ====================================================== */
+
     function getTodayKey() {
 
-        return nowISO().slice(0, 10);
+        const now = new Date();
+
+        const year =
+            now.getFullYear();
+
+        const month =
+            String(
+                now.getMonth() + 1
+            ).padStart(2, "0");
+
+        const day =
+            String(
+                now.getDate()
+            ).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
 
     }
 
     function formatDateKey(date) {
 
-        return new Date(date)
-            .toISOString()
-            .slice(0, 10);
+        const value =
+            new Date(date);
+
+        const year =
+            value.getFullYear();
+
+        const month =
+            String(
+                value.getMonth() + 1
+            ).padStart(2, "0");
+
+        const day =
+            String(
+                value.getDate()
+            ).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
 
     }
 
     function daysRemaining() {
 
-        const now = today();
+        const now =
+            today();
 
-        const exam = examDate();
+        const exam =
+            examDate();
 
-        const diff = exam - now;
+        const diff =
+            exam - now;
 
-        return Math.max(0, Math.ceil(diff / 86400000));
+        return Math.max(
+            0,
+            Math.ceil(
+                diff / 86400000
+            )
+        );
 
     }
 
     function countdown() {
 
-        const now = today();
+        const now =
+            today();
 
-        const exam = examDate();
+        const exam =
+            examDate();
 
-        let diff = exam - now;
+        let diff =
+            exam - now;
 
         if (diff < 0) {
 
@@ -73,13 +125,28 @@ const Utils = (() => {
 
         return {
 
-            days: Math.floor(diff / 86400000),
+            days:
+                Math.floor(
+                    diff / 86400000
+                ),
 
-            hours: Math.floor((diff % 86400000) / 3600000),
+            hours:
+                Math.floor(
+                    (diff % 86400000) /
+                    3600000
+                ),
 
-            minutes: Math.floor((diff % 3600000) / 60000),
+            minutes:
+                Math.floor(
+                    (diff % 3600000) /
+                    60000
+                ),
 
-            seconds: Math.floor((diff % 60000) / 1000)
+            seconds:
+                Math.floor(
+                    (diff % 60000) /
+                    1000
+                )
 
         };
 
@@ -91,9 +158,13 @@ const Utils = (() => {
 
     function sanitizeScore(value) {
 
-        if (typeof value === "string") {
+        if (
+            typeof value ===
+            "string"
+        ) {
 
-            value = value.trim();
+            value =
+                value.trim();
 
         }
 
@@ -109,7 +180,9 @@ const Utils = (() => {
 
     function isIntegerScore(value) {
 
-        return Number.isInteger(value);
+        return Number.isInteger(
+            value
+        );
 
     }
 
@@ -117,24 +190,38 @@ const Utils = (() => {
 
         return (
 
-            Number.isInteger(score) &&
+            Number.isInteger(
+                score
+            ) &&
 
             score >= 0 &&
 
-            score <= CONFIG.SCORE.MAXIMUM
+            score <=
+                CONFIG.SCORE.MAXIMUM
 
         );
 
     }
+
+    /* ======================================================
+       Percentage
+
+       Percentage is always calculated
+       against the maximum score.
+
+       Example:
+       150 / 200 = 75%
+    ====================================================== */
 
     function percentage(score) {
 
         return Number(
 
             (
-
-                (score / CONFIG.SCORE.MAXIMUM) * 100
-
+                (
+                    score /
+                    CONFIG.SCORE.MAXIMUM
+                ) * 100
             ).toFixed(2)
 
         );
@@ -147,23 +234,32 @@ const Utils = (() => {
 
     function average(scores) {
 
-        if (!scores.length) {
+        if (
+            !scores.length
+        ) {
 
             return 0;
 
         }
 
-        const total = scores.reduce(
+        const total =
+            scores.reduce(
 
-            (sum, value) => sum + value,
+                (
+                    sum,
+                    value
+                ) => sum + value,
 
-            0
+                0
 
-        );
+            );
 
         return Number(
 
-            (total / scores.length).toFixed(2)
+            (
+                total /
+                scores.length
+            ).toFixed(2)
 
         );
 
@@ -173,7 +269,9 @@ const Utils = (() => {
 
         return scores.length
 
-            ? Math.max(...scores)
+            ? Math.max(
+                ...scores
+            )
 
             : 0;
 
@@ -183,65 +281,120 @@ const Utils = (() => {
 
         return scores.length
 
-            ? Math.min(...scores)
+            ? Math.min(
+                ...scores
+            )
 
             : 0;
 
     }
 
+    /* ======================================================
+       Target Progress
+
+       Progress is calculated against
+       the configured target score.
+
+       Example:
+       Target = 160
+       Score  = 188
+
+       188 / 160 × 100
+       = 117.5%
+
+       The value is NOT capped here.
+       UI progress bars may cap visual width
+       at 100%.
+    ====================================================== */
+
     function targetProgress(score) {
 
         return Number(
 
-        (
+            (
+                (
+                    score /
+                    CONFIG.SCORE.TARGET
+                ) * 100
+            ).toFixed(2)
 
-            (score / CONFIG.SCORE.TARGET) * 100
-
-        ).toFixed(2)
-
-    );
+        );
 
     }
+
+    /* ======================================================
+       Remaining To Target
+
+       Never returns a negative value.
+
+       Example:
+       Score  = 120
+       Target = 160
+       Result = 40
+
+       Score  = 180
+       Target = 160
+       Result = 0
+    ====================================================== */
 
     function remainingToTarget(score) {
 
         return Math.max(
 
-        0,
+            0,
 
-        CONFIG.SCORE.TARGET - score
+            CONFIG.SCORE.TARGET -
+            score
 
-    );
+        );
 
     }
+
+    /* ======================================================
+       Practice Days
+
+       Number of saved daily scores.
+    ====================================================== */
 
     function practiceDays(scores) {
 
         return scores.length;
 
-    }   
+    }
+
+    /* ======================================================
+       Target Status
+    ====================================================== */
 
     function hasReachedTarget(score) {
 
-        return score >= CONFIG.SCORE.TARGET;
+        return (
+            score >=
+            CONFIG.SCORE.TARGET
+        );
 
     }
 
-/* Badge */        
-      
     /* ======================================================
-       Badge
+       Achievement Badge
     ====================================================== */
 
     function badge(score) {
 
-        let result = null;
+        let result =
+            null;
 
-        for (const item of CONFIG.BADGES) {
+        for (
+            const item of CONFIG.BADGES
+        ) {
 
-            if (score >= item.MINIMUM_SCORE) {
+            if (
+                score >=
+                item.MINIMUM_SCORE
+            ) {
 
-                result = item;
+                result =
+                    item;
 
             }
 
@@ -252,7 +405,7 @@ const Utils = (() => {
     }
 
     /* ======================================================
-       Export
+       Public API
     ====================================================== */
 
     return Object.freeze({
@@ -284,7 +437,7 @@ const Utils = (() => {
         highest,
 
         lowest,
-         
+
         targetProgress,
 
         remainingToTarget,
